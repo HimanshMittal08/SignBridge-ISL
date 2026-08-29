@@ -1,0 +1,459 @@
+# SIGNBRIDGE — STOP UI WORK. IMPLEMENT THE ACTUAL LIVE ISL SIGN INPUT NOW.
+
+The current SignBridge prototype is mostly a text/UI experience.
+
+That is NOT sufficient.
+
+Do not spend time adding more visual effects, landing-page sections, fake AI responses, or placeholder text.
+
+The next priority is the actual core functionality:
+
+**WEBCAM → HAND DETECTION → ISL SIGN RECOGNITION → RAW SIGN → INTERPRETATION**
+
+I need to be able to sit in front of the laptop webcam and perform an actual ISL sign with my hand, and the application must process the camera input.
+
+---
+
+## 1. FIRST VERIFY THE CAMERA
+
+Implement real browser webcam access using getUserMedia.
+
+When the user enters Live Conversation:
+
+* request camera permission
+* display the real webcam stream
+* show clear camera status
+* handle permission denied
+* handle camera unavailable
+* handle unsupported browser
+
+Do NOT use a fake camera feed.
+
+Acceptance test:
+
+I can see myself through the webcam inside SignBridge.
+
+---
+
+# 2. IMPLEMENT REAL HAND LANDMARK DETECTION
+
+Use a browser-compatible hand landmark solution such as MediaPipe Tasks / MediaPipe Hand Landmarker.
+
+The webcam frames must actually be processed.
+
+Detect:
+
+* hand presence
+* handedness if available
+* hand landmarks
+* landmark coordinates
+
+For development, temporarily show a subtle landmark overlay.
+
+Acceptance test:
+
+When I put my hand in front of the webcam:
+
+* hand landmarks appear
+* when I move my hand, the landmarks move
+* when I remove my hand, detection disappears
+
+This proves that the application is processing real camera input.
+
+Do NOT fake this with animations.
+
+---
+
+# 3. CONNECT REAL ISL RECOGNITION
+
+Now inspect the official INCLUDE / AI4Bharat implementation.
+
+The target recognition vocabulary is the full INCLUDE dataset:
+
+approximately:
+
+**263 isolated ISL sign classes**
+
+Do NOT permanently limit the model to 10 signs.
+
+Do NOT create a fake dictionary lookup such as:
+
+if hand detected → show "HELLO".
+
+Do NOT generate random predictions.
+
+First determine whether the available INCLUDE pretrained model can be run directly.
+
+If yes:
+
+* integrate it
+* expose inference through the appropriate backend/API
+* test it against a known INCLUDE sample
+* record the actual prediction
+
+If the pretrained model cannot directly run in the Replit environment:
+
+* document the exact technical reason
+* create the smallest practical inference service using the INCLUDE data/model
+* keep the frontend API-compatible so the recognition model can be replaced later
+
+Do NOT pretend the model is working if it is not.
+
+---
+
+# 4. IMPORTANT: NO BODY POSE
+
+SignBridge does NOT use body pose as a core recognition input.
+
+Do NOT add BlazePose/body-pose tracking to the user-facing recognition pipeline.
+
+Use:
+
+**Hands = primary**
+
+**Face/non-manual cues = secondary contextual information**
+
+---
+
+# 5. CREATE A CLEAN RECOGNITION API
+
+The frontend should receive something like:
+
+{
+"sign": "WATER",
+"confidence": 0.91,
+"timestamp": 123456789
+}
+
+If the model produces logits/scores rather than calibrated probabilities, do not label them as scientifically calibrated probabilities.
+
+Use a label such as:
+
+"Model confidence score"
+
+where appropriate.
+
+---
+
+# 6. LIVE PREDICTION UI
+
+Add a section to the existing Live Conversation page:
+
+### LIVE SIGN DETECTION
+
+Current sign:
+
+**WATER**
+
+Confidence:
+
+**91%**
+
+Raw detected sequence:
+
+**HELLO · HOW · YOU**
+
+The raw sign sequence must be visible.
+
+Do not replace it with only an AI-generated sentence.
+
+---
+
+# 7. TEMPORAL SIGN DETECTION
+
+INCLUDE contains isolated sign videos.
+
+The live camera is continuous.
+
+Therefore implement a temporal buffer.
+
+Conceptually:
+
+camera frames
+↓
+hand landmarks/features
+↓
+temporal window
+↓
+sign prediction
+↓
+prediction stabilization
+↓
+sign boundary detection
+↓
+append completed sign
+
+Example:
+
+HELLO
+↓
+HOW
+↓
+YOU
+
+The system should not append:
+
+HELLO
+HELLO
+HELLO
+HELLO
+
+every frame.
+
+Use temporal smoothing / debouncing.
+
+Only commit a sign to the sequence after sufficient stable evidence.
+
+---
+
+# 8. SIGN SEQUENCE
+
+Maintain a current sequence:
+
+HELLO · HOW · YOU
+
+Provide:
+
+* clear sequence
+* remove last sign
+* clear sequence
+* confidence per detected sign
+
+Do not continuously send every frame to an AI/LLM.
+
+---
+
+# 9. CONTEXT INTERPRETATION
+
+Once a sign sequence exists:
+
+HELLO · HOW · YOU
+
+run it through the context layer.
+
+Output:
+
+"Hello, how are you?"
+
+The UI must show BOTH:
+
+### Detected signs
+
+HELLO · HOW · YOU
+
+### Interpretation
+
+Hello, how are you?
+
+Never hide the raw signs.
+
+---
+
+# 10. TTS
+
+When the user confirms the interpretation:
+
+Use browser Text-to-Speech.
+
+Example:
+
+"Hello, how are you?"
+
+→ speaker reads the sentence.
+
+Provide:
+
+* Speak
+* Stop
+* Replay
+
+Do not automatically speak every unstable prediction.
+
+---
+
+# 11. CONVERSATION STREAM
+
+Once a sign sequence is completed:
+
+Add:
+
+🤟 You
+
+Detected:
+HELLO · HOW · YOU
+
+Interpretation:
+"Hello, how are you?"
+
+to the existing live conversation stream.
+
+The conversation stream must work with real camera recognition, not hard-coded messages.
+
+---
+
+# 12. DEMO MODE MUST REMAIN SEPARATE
+
+The existing Demo Mode may use deterministic scripted scenarios.
+
+But:
+
+### LIVE MODE
+
+must use:
+
+REAL CAMERA
++
+REAL HAND DETECTION
++
+REAL MODEL INFERENCE
+
+Never silently fall back to fake predictions.
+
+If real inference is unavailable, display:
+
+"Live ISL recognition is currently unavailable."
+
+and provide an explicit option:
+
+"Switch to Demo Mode"
+
+---
+
+# 13. DEBUG PANEL
+
+Add a collapsible Developer/Debug panel.
+
+Show:
+
+* Camera: ON/OFF
+* Hand detected: YES/NO
+* Hand landmarks: YES/NO
+* Model: LOADED/ERROR
+* Current prediction
+* Model score
+* Inference latency
+* FPS
+* Current temporal buffer
+* Current committed sign sequence
+
+This is temporary but extremely important for debugging.
+
+---
+
+# 14. TEST THIS YOURSELF
+
+Do NOT just modify the code and say "done."
+
+Actually run the application.
+
+Perform these tests:
+
+### Test A
+
+Open Live Conversation.
+
+Expected:
+
+Real webcam appears.
+
+### Test B
+
+Put one hand in front of camera.
+
+Expected:
+
+Hand landmarks appear.
+
+### Test C
+
+Move hand.
+
+Expected:
+
+Landmarks follow movement.
+
+### Test D
+
+Run one known INCLUDE sample through the recognition pipeline.
+
+Expected:
+
+Actual model prediction is returned.
+
+### Test E
+
+Perform the corresponding sign in front of webcam.
+
+Expected:
+
+Live recognition pipeline produces a real prediction if the model supports this input format.
+
+### Test F
+
+Hold the sign long enough.
+
+Expected:
+
+One stable sign gets committed, not dozens of duplicate predictions.
+
+---
+
+# 15. DO NOT MOVE TO THE NEXT FEATURE UNTIL THIS WORKS
+
+Do NOT spend time implementing:
+
+* additional landing-page animations
+* fake sign outputs
+* more placeholder conversations
+* decorative AI graphics
+* unnecessary backend abstractions
+
+until:
+
+**I can sit in front of the laptop camera, make an ISL hand sign, and see the actual recognition pipeline respond.**
+
+That is the current definition of DONE.
+
+---
+
+## FINAL SUCCESS CONDITION
+
+I open:
+
+**SignBridge → Live Conversation**
+
+I allow camera access.
+
+I see myself.
+
+I put my hand in front of the camera.
+
+I see the hand landmarks.
+
+I perform a supported ISL sign.
+
+The actual recognition system processes it.
+
+The UI shows:
+
+**Detected: [actual sign]**
+
+with an actual model score.
+
+That sign enters the sequence.
+
+The sequence can become:
+
+**HELLO · HOW · YOU**
+
+The context layer produces:
+
+**"Hello, how are you?"**
+
+and TTS can speak it.
+
+ONLY after this complete loop works should we proceed to the reverse:
+
+**SPEECH/TEXT → ISL 2D SIGN VIDEO**
+
+Do not claim completion until you have actually tested the live camera pipeline.

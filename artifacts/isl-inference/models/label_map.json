@@ -1,0 +1,10 @@
+{
+  "EAT": 0,
+  "GO": 1,
+  "HELLO": 2,
+  "HELP": 3,
+  "NO": 4,
+  "PLEASE": 5,
+  "WATER": 6,
+  "YES": 7
+}

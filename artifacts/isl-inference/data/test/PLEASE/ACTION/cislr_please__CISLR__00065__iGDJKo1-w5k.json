@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-4e5b8fa5",
+  "label": "PLEASE",
+  "signer_id": "ACTION",
+  "source_dataset": "CISLR",
+  "source_video_filename": "please__CISLR__00065__iGDJKo1-w5k.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 100,
+    "frames_ge1_hand": 49,
+    "frames_2_hands": 0,
+    "usable_pct": 49.0,
+    "hand_counts_distribution": {
+      "0_hands": 51,
+      "1_hand": 49,
+      "2_hands": 0
+    }
+  },
+  "provenance": {
+    "word": "please",
+    "normalized_word": "please",
+    "dataset": "CISLR",
+    "original_label": "please",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\CISLR\\videos\\iGDJKo1-w5k.mp4",
+    "original_filename": "iGDJKo1-w5k.mp4",
+    "signer": "action",
+    "split": "",
+    "fps": "25.0",
+    "resolution": "300x300",
+    "duration": "3.32",
+    "license": "research (see HF card)",
+    "paper": "https://aclanthology.org/2022.emnlp-main.707",
+    "repository": "https://huggingface.co/datasets/Exploration-Lab/CISLR",
+    "download_url": "https://huggingface.co/datasets/Exploration-Lab/CISLR",
+    "sha256": "110f206cca3db05010c286bf70d6ec02310da944f41a14c0c59d35729970ab2a",
+    "phash": "ffe7dfffc3c1c1c2",
+    "quality_score": "0.85",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

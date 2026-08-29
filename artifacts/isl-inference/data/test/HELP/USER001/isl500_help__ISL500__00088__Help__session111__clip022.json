@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-b0b0623c",
+  "label": "HELP",
+  "signer_id": "USER001",
+  "source_dataset": "ISL500",
+  "source_video_filename": "help__ISL500__00088__Help__session111__clip022.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 170,
+    "frames_ge1_hand": 54,
+    "frames_2_hands": 17,
+    "usable_pct": 31.76,
+    "hand_counts_distribution": {
+      "0_hands": 116,
+      "1_hand": 37,
+      "2_hands": 17
+    }
+  },
+  "provenance": {
+    "word": "help",
+    "normalized_word": "help",
+    "dataset": "ISL500",
+    "original_label": "help",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\ISL500\\Videos\\User001\\Help__session111__clip022.mp4",
+    "original_filename": "Help__session111__clip022.mp4",
+    "signer": "User001",
+    "split": "",
+    "fps": "29.583333333333332",
+    "resolution": "2560x1440",
+    "duration": "5.687",
+    "license": "see HF card",
+    "paper": "",
+    "repository": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+    "download_url": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+    "sha256": "ad2c0e97bbe0d40d7eb52b149b558a99959e741c3ca9bc58f1a6f83cef5de231",
+    "phash": "f7f7e78703030303",
+    "quality_score": "1.0",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

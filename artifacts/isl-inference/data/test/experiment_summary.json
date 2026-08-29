@@ -1,0 +1,1010 @@
+[
+  {
+    "index": 1,
+    "video_filename": "eat__CISLR__00016__Cgs1MibMXJ0.mp4",
+    "label": "EAT",
+    "dataset_source": "CISLR",
+    "signer": "ACTION",
+    "total_frames": 106,
+    "frames_ge1_hand": 42,
+    "frames_2_hands": 0,
+    "usable_pct": 39.62,
+    "hand_distribution": {
+      "0_hands": 64,
+      "1_hand": 42,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/ACTION/cislr_eat__CISLR__00016__Cgs1MibMXJ0.npz",
+    "json_rel_path": "EAT/ACTION/cislr_eat__CISLR__00016__Cgs1MibMXJ0.json"
+  },
+  {
+    "index": 2,
+    "video_filename": "eat__ISL500__00082__Eat__session112__clip008.mp4",
+    "label": "EAT",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 160,
+    "frames_ge1_hand": 43,
+    "frames_2_hands": 0,
+    "usable_pct": 26.88,
+    "hand_distribution": {
+      "0_hands": 117,
+      "1_hand": 43,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/USER001/isl500_eat__ISL500__00082__Eat__session112__clip008.npz",
+    "json_rel_path": "EAT/USER001/isl500_eat__ISL500__00082__Eat__session112__clip008.json"
+  },
+  {
+    "index": 3,
+    "video_filename": "eat__ISL500__00109__Eat__session150__clip002.mp4",
+    "label": "EAT",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 119,
+    "frames_ge1_hand": 44,
+    "frames_2_hands": 0,
+    "usable_pct": 36.97,
+    "hand_distribution": {
+      "0_hands": 75,
+      "1_hand": 44,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/USER002/isl500_eat__ISL500__00109__Eat__session150__clip002.npz",
+    "json_rel_path": "EAT/USER002/isl500_eat__ISL500__00109__Eat__session150__clip002.json"
+  },
+  {
+    "index": 4,
+    "video_filename": "eat__ISL500__00136__Eat__session132__clip022.mp4",
+    "label": "EAT",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 195,
+    "frames_ge1_hand": 59,
+    "frames_2_hands": 0,
+    "usable_pct": 30.26,
+    "hand_distribution": {
+      "0_hands": 136,
+      "1_hand": 59,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/USER003/isl500_eat__ISL500__00136__Eat__session132__clip022.npz",
+    "json_rel_path": "EAT/USER003/isl500_eat__ISL500__00136__Eat__session132__clip022.json"
+  },
+  {
+    "index": 5,
+    "video_filename": "eat__ISL500__00163__Eat__session110__clip005.mp4",
+    "label": "EAT",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 93,
+    "frames_ge1_hand": 27,
+    "frames_2_hands": 0,
+    "usable_pct": 29.03,
+    "hand_distribution": {
+      "0_hands": 66,
+      "1_hand": 27,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/USER004/isl500_eat__ISL500__00163__Eat__session110__clip005.npz",
+    "json_rel_path": "EAT/USER004/isl500_eat__ISL500__00163__Eat__session110__clip005.json"
+  },
+  {
+    "index": 6,
+    "video_filename": "eat__ISL500__00190__Eat__session135__clip033.mp4",
+    "label": "EAT",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 132,
+    "frames_ge1_hand": 54,
+    "frames_2_hands": 0,
+    "usable_pct": 40.91,
+    "hand_distribution": {
+      "0_hands": 78,
+      "1_hand": 54,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/USER005/isl500_eat__ISL500__00190__Eat__session135__clip033.npz",
+    "json_rel_path": "EAT/USER005/isl500_eat__ISL500__00190__Eat__session135__clip033.json"
+  },
+  {
+    "index": 7,
+    "video_filename": "eat__ISL500__00217__Eat__session153__clip010.mp4",
+    "label": "EAT",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 164,
+    "frames_ge1_hand": 36,
+    "frames_2_hands": 0,
+    "usable_pct": 21.95,
+    "hand_distribution": {
+      "0_hands": 128,
+      "1_hand": 36,
+      "2_hands": 0
+    },
+    "npz_rel_path": "EAT/USER006/isl500_eat__ISL500__00217__Eat__session153__clip010.npz",
+    "json_rel_path": "EAT/USER006/isl500_eat__ISL500__00217__Eat__session153__clip010.json"
+  },
+  {
+    "index": 8,
+    "video_filename": "go__CISLR__00039__PQoocuBF2f8_1.mp4",
+    "label": "GO",
+    "dataset_source": "CISLR",
+    "signer": "PROCESS",
+    "total_frames": 76,
+    "frames_ge1_hand": 37,
+    "frames_2_hands": 0,
+    "usable_pct": 48.68,
+    "hand_distribution": {
+      "0_hands": 39,
+      "1_hand": 37,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/PROCESS/cislr_go__CISLR__00039__PQoocuBF2f8_1.npz",
+    "json_rel_path": "GO/PROCESS/cislr_go__CISLR__00039__PQoocuBF2f8_1.json"
+  },
+  {
+    "index": 9,
+    "video_filename": "go__ISL500__00086__Go__session118__clip011.mp4",
+    "label": "GO",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 163,
+    "frames_ge1_hand": 46,
+    "frames_2_hands": 0,
+    "usable_pct": 28.22,
+    "hand_distribution": {
+      "0_hands": 117,
+      "1_hand": 46,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/USER001/isl500_go__ISL500__00086__Go__session118__clip011.npz",
+    "json_rel_path": "GO/USER001/isl500_go__ISL500__00086__Go__session118__clip011.json"
+  },
+  {
+    "index": 10,
+    "video_filename": "go__ISL500__00113__Go__session160__clip026.mp4",
+    "label": "GO",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 62,
+    "frames_ge1_hand": 30,
+    "frames_2_hands": 0,
+    "usable_pct": 48.39,
+    "hand_distribution": {
+      "0_hands": 32,
+      "1_hand": 30,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/USER002/isl500_go__ISL500__00113__Go__session160__clip026.npz",
+    "json_rel_path": "GO/USER002/isl500_go__ISL500__00113__Go__session160__clip026.json"
+  },
+  {
+    "index": 11,
+    "video_filename": "go__ISL500__00140__Go__session10__clip004.mp4",
+    "label": "GO",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 222,
+    "frames_ge1_hand": 55,
+    "frames_2_hands": 0,
+    "usable_pct": 24.77,
+    "hand_distribution": {
+      "0_hands": 167,
+      "1_hand": 55,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/USER003/isl500_go__ISL500__00140__Go__session10__clip004.npz",
+    "json_rel_path": "GO/USER003/isl500_go__ISL500__00140__Go__session10__clip004.json"
+  },
+  {
+    "index": 12,
+    "video_filename": "go__ISL500__00167__Go__session103__clip023.mp4",
+    "label": "GO",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 74,
+    "frames_ge1_hand": 29,
+    "frames_2_hands": 0,
+    "usable_pct": 39.19,
+    "hand_distribution": {
+      "0_hands": 45,
+      "1_hand": 29,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/USER004/isl500_go__ISL500__00167__Go__session103__clip023.npz",
+    "json_rel_path": "GO/USER004/isl500_go__ISL500__00167__Go__session103__clip023.json"
+  },
+  {
+    "index": 13,
+    "video_filename": "go__ISL500__00194__Go__session160__clip002.mp4",
+    "label": "GO",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 119,
+    "frames_ge1_hand": 40,
+    "frames_2_hands": 0,
+    "usable_pct": 33.61,
+    "hand_distribution": {
+      "0_hands": 79,
+      "1_hand": 40,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/USER005/isl500_go__ISL500__00194__Go__session160__clip002.npz",
+    "json_rel_path": "GO/USER005/isl500_go__ISL500__00194__Go__session160__clip002.json"
+  },
+  {
+    "index": 14,
+    "video_filename": "go__ISL500__00221__Go__session109__clip032.mp4",
+    "label": "GO",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 146,
+    "frames_ge1_hand": 36,
+    "frames_2_hands": 0,
+    "usable_pct": 24.66,
+    "hand_distribution": {
+      "0_hands": 110,
+      "1_hand": 36,
+      "2_hands": 0
+    },
+    "npz_rel_path": "GO/USER006/isl500_go__ISL500__00221__Go__session109__clip032.npz",
+    "json_rel_path": "GO/USER006/isl500_go__ISL500__00221__Go__session109__clip032.json"
+  },
+  {
+    "index": 15,
+    "video_filename": "hello__INCLUDE__00566__MVI_0029.mp4",
+    "label": "HELLO",
+    "dataset_source": "INCLUDE",
+    "signer": "INCLUDE_MVI_0029",
+    "total_frames": 76,
+    "frames_ge1_hand": 76,
+    "frames_2_hands": 64,
+    "usable_pct": 100.0,
+    "hand_distribution": {
+      "0_hands": 0,
+      "1_hand": 12,
+      "2_hands": 64
+    },
+    "npz_rel_path": "HELLO/INCLUDE_MVI_0029/include_hello__INCLUDE__00566__MVI_0029.npz",
+    "json_rel_path": "HELLO/INCLUDE_MVI_0029/include_hello__INCLUDE__00566__MVI_0029.json"
+  },
+  {
+    "index": 16,
+    "video_filename": "hello__INCLUDE__00567__MVI_0030.mp4",
+    "label": "HELLO",
+    "dataset_source": "INCLUDE",
+    "signer": "INCLUDE_MVI_0030",
+    "total_frames": 89,
+    "frames_ge1_hand": 89,
+    "frames_2_hands": 80,
+    "usable_pct": 100.0,
+    "hand_distribution": {
+      "0_hands": 0,
+      "1_hand": 9,
+      "2_hands": 80
+    },
+    "npz_rel_path": "HELLO/INCLUDE_MVI_0030/include_hello__INCLUDE__00567__MVI_0030.npz",
+    "json_rel_path": "HELLO/INCLUDE_MVI_0030/include_hello__INCLUDE__00567__MVI_0030.json"
+  },
+  {
+    "index": 17,
+    "video_filename": "hello__INCLUDE__00568__MVI_0031.mp4",
+    "label": "HELLO",
+    "dataset_source": "INCLUDE",
+    "signer": "INCLUDE_MVI_0031",
+    "total_frames": 78,
+    "frames_ge1_hand": 78,
+    "frames_2_hands": 65,
+    "usable_pct": 100.0,
+    "hand_distribution": {
+      "0_hands": 0,
+      "1_hand": 13,
+      "2_hands": 65
+    },
+    "npz_rel_path": "HELLO/INCLUDE_MVI_0031/include_hello__INCLUDE__00568__MVI_0031.npz",
+    "json_rel_path": "HELLO/INCLUDE_MVI_0031/include_hello__INCLUDE__00568__MVI_0031.json"
+  },
+  {
+    "index": 18,
+    "video_filename": "hello__INCLUDE__00569__MVI_0032.mp4",
+    "label": "HELLO",
+    "dataset_source": "INCLUDE",
+    "signer": "INCLUDE_MVI_0032",
+    "total_frames": 73,
+    "frames_ge1_hand": 73,
+    "frames_2_hands": 60,
+    "usable_pct": 100.0,
+    "hand_distribution": {
+      "0_hands": 0,
+      "1_hand": 13,
+      "2_hands": 60
+    },
+    "npz_rel_path": "HELLO/INCLUDE_MVI_0032/include_hello__INCLUDE__00569__MVI_0032.npz",
+    "json_rel_path": "HELLO/INCLUDE_MVI_0032/include_hello__INCLUDE__00569__MVI_0032.json"
+  },
+  {
+    "index": 19,
+    "video_filename": "hello__INCLUDE__00570__MVI_0037.mp4",
+    "label": "HELLO",
+    "dataset_source": "INCLUDE",
+    "signer": "INCLUDE_MVI_0037",
+    "total_frames": 59,
+    "frames_ge1_hand": 49,
+    "frames_2_hands": 36,
+    "usable_pct": 83.05,
+    "hand_distribution": {
+      "0_hands": 10,
+      "1_hand": 13,
+      "2_hands": 36
+    },
+    "npz_rel_path": "HELLO/INCLUDE_MVI_0037/include_hello__INCLUDE__00570__MVI_0037.npz",
+    "json_rel_path": "HELLO/INCLUDE_MVI_0037/include_hello__INCLUDE__00570__MVI_0037.json"
+  },
+  {
+    "index": 20,
+    "video_filename": "hello__INCLUDE__00571__MVI_0038.mp4",
+    "label": "HELLO",
+    "dataset_source": "INCLUDE",
+    "signer": "INCLUDE_MVI_0038",
+    "total_frames": 67,
+    "frames_ge1_hand": 53,
+    "frames_2_hands": 29,
+    "usable_pct": 79.1,
+    "hand_distribution": {
+      "0_hands": 14,
+      "1_hand": 24,
+      "2_hands": 29
+    },
+    "npz_rel_path": "HELLO/INCLUDE_MVI_0038/include_hello__INCLUDE__00571__MVI_0038.npz",
+    "json_rel_path": "HELLO/INCLUDE_MVI_0038/include_hello__INCLUDE__00571__MVI_0038.json"
+  },
+  {
+    "index": 21,
+    "video_filename": "hello__ISL500__00087__Hello__session101__clip021.mp4",
+    "label": "HELLO",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 162,
+    "frames_ge1_hand": 42,
+    "frames_2_hands": 0,
+    "usable_pct": 25.93,
+    "hand_distribution": {
+      "0_hands": 120,
+      "1_hand": 42,
+      "2_hands": 0
+    },
+    "npz_rel_path": "HELLO/USER001/isl500_hello__ISL500__00087__Hello__session101__clip021.npz",
+    "json_rel_path": "HELLO/USER001/isl500_hello__ISL500__00087__Hello__session101__clip021.json"
+  },
+  {
+    "index": 22,
+    "video_filename": "help__CISLR__00018__E91cfQBn8_4_1.mp4",
+    "label": "HELP",
+    "dataset_source": "CISLR",
+    "signer": "PROCESS",
+    "total_frames": 90,
+    "frames_ge1_hand": 44,
+    "frames_2_hands": 19,
+    "usable_pct": 48.89,
+    "hand_distribution": {
+      "0_hands": 46,
+      "1_hand": 25,
+      "2_hands": 19
+    },
+    "npz_rel_path": "HELP/PROCESS/cislr_help__CISLR__00018__E91cfQBn8_4_1.npz",
+    "json_rel_path": "HELP/PROCESS/cislr_help__CISLR__00018__E91cfQBn8_4_1.json"
+  },
+  {
+    "index": 23,
+    "video_filename": "help__ISL500__00088__Help__session111__clip022.mp4",
+    "label": "HELP",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 170,
+    "frames_ge1_hand": 54,
+    "frames_2_hands": 17,
+    "usable_pct": 31.76,
+    "hand_distribution": {
+      "0_hands": 116,
+      "1_hand": 37,
+      "2_hands": 17
+    },
+    "npz_rel_path": "HELP/USER001/isl500_help__ISL500__00088__Help__session111__clip022.npz",
+    "json_rel_path": "HELP/USER001/isl500_help__ISL500__00088__Help__session111__clip022.json"
+  },
+  {
+    "index": 24,
+    "video_filename": "help__ISL500__00115__Help__session155__clip011.mp4",
+    "label": "HELP",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 84,
+    "frames_ge1_hand": 46,
+    "frames_2_hands": 4,
+    "usable_pct": 54.76,
+    "hand_distribution": {
+      "0_hands": 38,
+      "1_hand": 42,
+      "2_hands": 4
+    },
+    "npz_rel_path": "HELP/USER002/isl500_help__ISL500__00115__Help__session155__clip011.npz",
+    "json_rel_path": "HELP/USER002/isl500_help__ISL500__00115__Help__session155__clip011.json"
+  },
+  {
+    "index": 25,
+    "video_filename": "help__ISL500__00142__Help__session136__clip019.mp4",
+    "label": "HELP",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 174,
+    "frames_ge1_hand": 55,
+    "frames_2_hands": 27,
+    "usable_pct": 31.61,
+    "hand_distribution": {
+      "0_hands": 119,
+      "1_hand": 28,
+      "2_hands": 27
+    },
+    "npz_rel_path": "HELP/USER003/isl500_help__ISL500__00142__Help__session136__clip019.npz",
+    "json_rel_path": "HELP/USER003/isl500_help__ISL500__00142__Help__session136__clip019.json"
+  },
+  {
+    "index": 26,
+    "video_filename": "help__ISL500__00169__Help__session105__clip013.mp4",
+    "label": "HELP",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 80,
+    "frames_ge1_hand": 32,
+    "frames_2_hands": 21,
+    "usable_pct": 40.0,
+    "hand_distribution": {
+      "0_hands": 48,
+      "1_hand": 11,
+      "2_hands": 21
+    },
+    "npz_rel_path": "HELP/USER004/isl500_help__ISL500__00169__Help__session105__clip013.npz",
+    "json_rel_path": "HELP/USER004/isl500_help__ISL500__00169__Help__session105__clip013.json"
+  },
+  {
+    "index": 27,
+    "video_filename": "help__ISL500__00196__Help__session144__clip002.mp4",
+    "label": "HELP",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 134,
+    "frames_ge1_hand": 50,
+    "frames_2_hands": 13,
+    "usable_pct": 37.31,
+    "hand_distribution": {
+      "0_hands": 84,
+      "1_hand": 37,
+      "2_hands": 13
+    },
+    "npz_rel_path": "HELP/USER005/isl500_help__ISL500__00196__Help__session144__clip002.npz",
+    "json_rel_path": "HELP/USER005/isl500_help__ISL500__00196__Help__session144__clip002.json"
+  },
+  {
+    "index": 28,
+    "video_filename": "help__ISL500__00223__Help__session110__clip001.mp4",
+    "label": "HELP",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 175,
+    "frames_ge1_hand": 52,
+    "frames_2_hands": 18,
+    "usable_pct": 29.71,
+    "hand_distribution": {
+      "0_hands": 123,
+      "1_hand": 34,
+      "2_hands": 18
+    },
+    "npz_rel_path": "HELP/USER006/isl500_help__ISL500__00223__Help__session110__clip001.npz",
+    "json_rel_path": "HELP/USER006/isl500_help__ISL500__00223__Help__session110__clip001.json"
+  },
+  {
+    "index": 29,
+    "video_filename": "no__CISLR__00015__CXEDTo1PXCg.mp4",
+    "label": "NO",
+    "dataset_source": "CISLR",
+    "signer": "ABSTRACT",
+    "total_frames": 94,
+    "frames_ge1_hand": 42,
+    "frames_2_hands": 0,
+    "usable_pct": 44.68,
+    "hand_distribution": {
+      "0_hands": 52,
+      "1_hand": 42,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/ABSTRACT/cislr_no__CISLR__00015__CXEDTo1PXCg.npz",
+    "json_rel_path": "NO/ABSTRACT/cislr_no__CISLR__00015__CXEDTo1PXCg.json"
+  },
+  {
+    "index": 30,
+    "video_filename": "no__ISL500__00092__No__session104__clip019.mp4",
+    "label": "NO",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 159,
+    "frames_ge1_hand": 50,
+    "frames_2_hands": 0,
+    "usable_pct": 31.45,
+    "hand_distribution": {
+      "0_hands": 109,
+      "1_hand": 50,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/USER001/isl500_no__ISL500__00092__No__session104__clip019.npz",
+    "json_rel_path": "NO/USER001/isl500_no__ISL500__00092__No__session104__clip019.json"
+  },
+  {
+    "index": 31,
+    "video_filename": "no__ISL500__00119__No__session161__clip025.mp4",
+    "label": "NO",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 70,
+    "frames_ge1_hand": 35,
+    "frames_2_hands": 0,
+    "usable_pct": 50.0,
+    "hand_distribution": {
+      "0_hands": 35,
+      "1_hand": 35,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/USER002/isl500_no__ISL500__00119__No__session161__clip025.npz",
+    "json_rel_path": "NO/USER002/isl500_no__ISL500__00119__No__session161__clip025.json"
+  },
+  {
+    "index": 32,
+    "video_filename": "no__ISL500__00146__No__session107__clip008.mp4",
+    "label": "NO",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 200,
+    "frames_ge1_hand": 73,
+    "frames_2_hands": 0,
+    "usable_pct": 36.5,
+    "hand_distribution": {
+      "0_hands": 127,
+      "1_hand": 73,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/USER003/isl500_no__ISL500__00146__No__session107__clip008.npz",
+    "json_rel_path": "NO/USER003/isl500_no__ISL500__00146__No__session107__clip008.json"
+  },
+  {
+    "index": 33,
+    "video_filename": "no__ISL500__00173__No__session110__clip018.mp4",
+    "label": "NO",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 62,
+    "frames_ge1_hand": 16,
+    "frames_2_hands": 0,
+    "usable_pct": 25.81,
+    "hand_distribution": {
+      "0_hands": 46,
+      "1_hand": 16,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/USER004/isl500_no__ISL500__00173__No__session110__clip018.npz",
+    "json_rel_path": "NO/USER004/isl500_no__ISL500__00173__No__session110__clip018.json"
+  },
+  {
+    "index": 34,
+    "video_filename": "no__ISL500__00200__No__session162__clip014.mp4",
+    "label": "NO",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 129,
+    "frames_ge1_hand": 46,
+    "frames_2_hands": 0,
+    "usable_pct": 35.66,
+    "hand_distribution": {
+      "0_hands": 83,
+      "1_hand": 46,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/USER005/isl500_no__ISL500__00200__No__session162__clip014.npz",
+    "json_rel_path": "NO/USER005/isl500_no__ISL500__00200__No__session162__clip014.json"
+  },
+  {
+    "index": 35,
+    "video_filename": "no__ISL500__00227__No__session143__clip002.mp4",
+    "label": "NO",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 153,
+    "frames_ge1_hand": 48,
+    "frames_2_hands": 0,
+    "usable_pct": 31.37,
+    "hand_distribution": {
+      "0_hands": 105,
+      "1_hand": 48,
+      "2_hands": 0
+    },
+    "npz_rel_path": "NO/USER006/isl500_no__ISL500__00227__No__session143__clip002.npz",
+    "json_rel_path": "NO/USER006/isl500_no__ISL500__00227__No__session143__clip002.json"
+  },
+  {
+    "index": 36,
+    "video_filename": "please__CISLR__00065__iGDJKo1-w5k.mp4",
+    "label": "PLEASE",
+    "dataset_source": "CISLR",
+    "signer": "ACTION",
+    "total_frames": 100,
+    "frames_ge1_hand": 49,
+    "frames_2_hands": 0,
+    "usable_pct": 49.0,
+    "hand_distribution": {
+      "0_hands": 51,
+      "1_hand": 49,
+      "2_hands": 0
+    },
+    "npz_rel_path": "PLEASE/ACTION/cislr_please__CISLR__00065__iGDJKo1-w5k.npz",
+    "json_rel_path": "PLEASE/ACTION/cislr_please__CISLR__00065__iGDJKo1-w5k.json"
+  },
+  {
+    "index": 37,
+    "video_filename": "please__ISL500__00093__Please__session104__clip016.mp4",
+    "label": "PLEASE",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 162,
+    "frames_ge1_hand": 49,
+    "frames_2_hands": 0,
+    "usable_pct": 30.25,
+    "hand_distribution": {
+      "0_hands": 113,
+      "1_hand": 49,
+      "2_hands": 0
+    },
+    "npz_rel_path": "PLEASE/USER001/isl500_please__ISL500__00093__Please__session104__clip016.npz",
+    "json_rel_path": "PLEASE/USER001/isl500_please__ISL500__00093__Please__session104__clip016.json"
+  },
+  {
+    "index": 38,
+    "video_filename": "please__ISL500__00120__Please__session106__clip004.mp4",
+    "label": "PLEASE",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 85,
+    "frames_ge1_hand": 41,
+    "frames_2_hands": 0,
+    "usable_pct": 48.24,
+    "hand_distribution": {
+      "0_hands": 44,
+      "1_hand": 41,
+      "2_hands": 0
+    },
+    "npz_rel_path": "PLEASE/USER002/isl500_please__ISL500__00120__Please__session106__clip004.npz",
+    "json_rel_path": "PLEASE/USER002/isl500_please__ISL500__00120__Please__session106__clip004.json"
+  },
+  {
+    "index": 39,
+    "video_filename": "please__ISL500__00147__Please__session111__clip009.mp4",
+    "label": "PLEASE",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 190,
+    "frames_ge1_hand": 60,
+    "frames_2_hands": 7,
+    "usable_pct": 31.58,
+    "hand_distribution": {
+      "0_hands": 130,
+      "1_hand": 53,
+      "2_hands": 7
+    },
+    "npz_rel_path": "PLEASE/USER003/isl500_please__ISL500__00147__Please__session111__clip009.npz",
+    "json_rel_path": "PLEASE/USER003/isl500_please__ISL500__00147__Please__session111__clip009.json"
+  },
+  {
+    "index": 40,
+    "video_filename": "please__ISL500__00174__Please__session107__clip001.mp4",
+    "label": "PLEASE",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 75,
+    "frames_ge1_hand": 26,
+    "frames_2_hands": 0,
+    "usable_pct": 34.67,
+    "hand_distribution": {
+      "0_hands": 49,
+      "1_hand": 26,
+      "2_hands": 0
+    },
+    "npz_rel_path": "PLEASE/USER004/isl500_please__ISL500__00174__Please__session107__clip001.npz",
+    "json_rel_path": "PLEASE/USER004/isl500_please__ISL500__00174__Please__session107__clip001.json"
+  },
+  {
+    "index": 41,
+    "video_filename": "please__ISL500__00201__Please__session117__clip014.mp4",
+    "label": "PLEASE",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 150,
+    "frames_ge1_hand": 53,
+    "frames_2_hands": 0,
+    "usable_pct": 35.33,
+    "hand_distribution": {
+      "0_hands": 97,
+      "1_hand": 53,
+      "2_hands": 0
+    },
+    "npz_rel_path": "PLEASE/USER005/isl500_please__ISL500__00201__Please__session117__clip014.npz",
+    "json_rel_path": "PLEASE/USER005/isl500_please__ISL500__00201__Please__session117__clip014.json"
+  },
+  {
+    "index": 42,
+    "video_filename": "please__ISL500__00228__Please__session105__clip001.mp4",
+    "label": "PLEASE",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 168,
+    "frames_ge1_hand": 41,
+    "frames_2_hands": 0,
+    "usable_pct": 24.4,
+    "hand_distribution": {
+      "0_hands": 127,
+      "1_hand": 41,
+      "2_hands": 0
+    },
+    "npz_rel_path": "PLEASE/USER006/isl500_please__ISL500__00228__Please__session105__clip001.npz",
+    "json_rel_path": "PLEASE/USER006/isl500_please__ISL500__00228__Please__session105__clip001.json"
+  },
+  {
+    "index": 43,
+    "video_filename": "water__CISLR__00010__5FSC6Og1RBQ_2.mp4",
+    "label": "WATER",
+    "dataset_source": "CISLR",
+    "signer": "SUBSTANCE",
+    "total_frames": 78,
+    "frames_ge1_hand": 5,
+    "frames_2_hands": 0,
+    "usable_pct": 6.41,
+    "hand_distribution": {
+      "0_hands": 73,
+      "1_hand": 5,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/SUBSTANCE/cislr_water__CISLR__00010__5FSC6Og1RBQ_2.npz",
+    "json_rel_path": "WATER/SUBSTANCE/cislr_water__CISLR__00010__5FSC6Og1RBQ_2.json"
+  },
+  {
+    "index": 44,
+    "video_filename": "water__ISL500__00103__Water__session117__clip006.mp4",
+    "label": "WATER",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 155,
+    "frames_ge1_hand": 48,
+    "frames_2_hands": 0,
+    "usable_pct": 30.97,
+    "hand_distribution": {
+      "0_hands": 107,
+      "1_hand": 48,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/USER001/isl500_water__ISL500__00103__Water__session117__clip006.npz",
+    "json_rel_path": "WATER/USER001/isl500_water__ISL500__00103__Water__session117__clip006.json"
+  },
+  {
+    "index": 45,
+    "video_filename": "water__ISL500__00130__Water__session158__clip023.mp4",
+    "label": "WATER",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 56,
+    "frames_ge1_hand": 29,
+    "frames_2_hands": 0,
+    "usable_pct": 51.79,
+    "hand_distribution": {
+      "0_hands": 27,
+      "1_hand": 29,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/USER002/isl500_water__ISL500__00130__Water__session158__clip023.npz",
+    "json_rel_path": "WATER/USER002/isl500_water__ISL500__00130__Water__session158__clip023.json"
+  },
+  {
+    "index": 46,
+    "video_filename": "water__ISL500__00157__Water__session102__clip018.mp4",
+    "label": "WATER",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 182,
+    "frames_ge1_hand": 56,
+    "frames_2_hands": 0,
+    "usable_pct": 30.77,
+    "hand_distribution": {
+      "0_hands": 126,
+      "1_hand": 56,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/USER003/isl500_water__ISL500__00157__Water__session102__clip018.npz",
+    "json_rel_path": "WATER/USER003/isl500_water__ISL500__00157__Water__session102__clip018.json"
+  },
+  {
+    "index": 47,
+    "video_filename": "water__ISL500__00184__Water__session121__clip007.mp4",
+    "label": "WATER",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 95,
+    "frames_ge1_hand": 29,
+    "frames_2_hands": 0,
+    "usable_pct": 30.53,
+    "hand_distribution": {
+      "0_hands": 66,
+      "1_hand": 29,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/USER004/isl500_water__ISL500__00184__Water__session121__clip007.npz",
+    "json_rel_path": "WATER/USER004/isl500_water__ISL500__00184__Water__session121__clip007.json"
+  },
+  {
+    "index": 48,
+    "video_filename": "water__ISL500__00211__Water__session109__clip006.mp4",
+    "label": "WATER",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 138,
+    "frames_ge1_hand": 52,
+    "frames_2_hands": 0,
+    "usable_pct": 37.68,
+    "hand_distribution": {
+      "0_hands": 86,
+      "1_hand": 52,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/USER005/isl500_water__ISL500__00211__Water__session109__clip006.npz",
+    "json_rel_path": "WATER/USER005/isl500_water__ISL500__00211__Water__session109__clip006.json"
+  },
+  {
+    "index": 49,
+    "video_filename": "water__ISL500__00238__Water__session104__clip017.mp4",
+    "label": "WATER",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 159,
+    "frames_ge1_hand": 42,
+    "frames_2_hands": 0,
+    "usable_pct": 26.42,
+    "hand_distribution": {
+      "0_hands": 117,
+      "1_hand": 42,
+      "2_hands": 0
+    },
+    "npz_rel_path": "WATER/USER006/isl500_water__ISL500__00238__Water__session104__clip017.npz",
+    "json_rel_path": "WATER/USER006/isl500_water__ISL500__00238__Water__session104__clip017.json"
+  },
+  {
+    "index": 50,
+    "video_filename": "yes__CISLR__00033__LAT-u9Ww5ZU.mp4",
+    "label": "YES",
+    "dataset_source": "CISLR",
+    "signer": "COMPARATOR",
+    "total_frames": 103,
+    "frames_ge1_hand": 43,
+    "frames_2_hands": 0,
+    "usable_pct": 41.75,
+    "hand_distribution": {
+      "0_hands": 60,
+      "1_hand": 43,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/COMPARATOR/cislr_yes__CISLR__00033__LAT-u9Ww5ZU.npz",
+    "json_rel_path": "YES/COMPARATOR/cislr_yes__CISLR__00033__LAT-u9Ww5ZU.json"
+  },
+  {
+    "index": 51,
+    "video_filename": "yes__ISL500__00106__Yes__session105__clip014.mp4",
+    "label": "YES",
+    "dataset_source": "ISL500",
+    "signer": "USER001",
+    "total_frames": 163,
+    "frames_ge1_hand": 48,
+    "frames_2_hands": 0,
+    "usable_pct": 29.45,
+    "hand_distribution": {
+      "0_hands": 115,
+      "1_hand": 48,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/USER001/isl500_yes__ISL500__00106__Yes__session105__clip014.npz",
+    "json_rel_path": "YES/USER001/isl500_yes__ISL500__00106__Yes__session105__clip014.json"
+  },
+  {
+    "index": 52,
+    "video_filename": "yes__ISL500__00133__Yes__session140__clip009.mp4",
+    "label": "YES",
+    "dataset_source": "ISL500",
+    "signer": "USER002",
+    "total_frames": 150,
+    "frames_ge1_hand": 71,
+    "frames_2_hands": 0,
+    "usable_pct": 47.33,
+    "hand_distribution": {
+      "0_hands": 79,
+      "1_hand": 71,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/USER002/isl500_yes__ISL500__00133__Yes__session140__clip009.npz",
+    "json_rel_path": "YES/USER002/isl500_yes__ISL500__00133__Yes__session140__clip009.json"
+  },
+  {
+    "index": 53,
+    "video_filename": "yes__ISL500__00160__Yes__session114__clip001.mp4",
+    "label": "YES",
+    "dataset_source": "ISL500",
+    "signer": "USER003",
+    "total_frames": 151,
+    "frames_ge1_hand": 63,
+    "frames_2_hands": 0,
+    "usable_pct": 41.72,
+    "hand_distribution": {
+      "0_hands": 88,
+      "1_hand": 63,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/USER003/isl500_yes__ISL500__00160__Yes__session114__clip001.npz",
+    "json_rel_path": "YES/USER003/isl500_yes__ISL500__00160__Yes__session114__clip001.json"
+  },
+  {
+    "index": 54,
+    "video_filename": "yes__ISL500__00187__Yes__session105__clip015.mp4",
+    "label": "YES",
+    "dataset_source": "ISL500",
+    "signer": "USER004",
+    "total_frames": 79,
+    "frames_ge1_hand": 32,
+    "frames_2_hands": 0,
+    "usable_pct": 40.51,
+    "hand_distribution": {
+      "0_hands": 47,
+      "1_hand": 32,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/USER004/isl500_yes__ISL500__00187__Yes__session105__clip015.npz",
+    "json_rel_path": "YES/USER004/isl500_yes__ISL500__00187__Yes__session105__clip015.json"
+  },
+  {
+    "index": 55,
+    "video_filename": "yes__ISL500__00214__Yes__session114__clip002.mp4",
+    "label": "YES",
+    "dataset_source": "ISL500",
+    "signer": "USER005",
+    "total_frames": 158,
+    "frames_ge1_hand": 61,
+    "frames_2_hands": 0,
+    "usable_pct": 38.61,
+    "hand_distribution": {
+      "0_hands": 97,
+      "1_hand": 61,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/USER005/isl500_yes__ISL500__00214__Yes__session114__clip002.npz",
+    "json_rel_path": "YES/USER005/isl500_yes__ISL500__00214__Yes__session114__clip002.json"
+  },
+  {
+    "index": 56,
+    "video_filename": "yes__ISL500__00241__Yes__session112__clip005.mp4",
+    "label": "YES",
+    "dataset_source": "ISL500",
+    "signer": "USER006",
+    "total_frames": 175,
+    "frames_ge1_hand": 45,
+    "frames_2_hands": 0,
+    "usable_pct": 25.71,
+    "hand_distribution": {
+      "0_hands": 130,
+      "1_hand": 45,
+      "2_hands": 0
+    },
+    "npz_rel_path": "YES/USER006/isl500_yes__ISL500__00241__Yes__session112__clip005.npz",
+    "json_rel_path": "YES/USER006/isl500_yes__ISL500__00241__Yes__session112__clip005.json"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-bb991eac",
+  "label": "WATER",
+  "signer_id": "USER004",
+  "source_dataset": "ISL500",
+  "source_video_filename": "water__ISL500__00184__Water__session121__clip007.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 95,
+    "frames_ge1_hand": 29,
+    "frames_2_hands": 0,
+    "usable_pct": 30.53,
+    "hand_counts_distribution": {
+      "0_hands": 66,
+      "1_hand": 29,
+      "2_hands": 0
+    }
+  },
+  "provenance": {
+    "word": "water",
+    "normalized_word": "water",
+    "dataset": "ISL500",
+    "original_label": "water",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\ISL500\\Videos\\User004\\Water__session121__clip007.mp4",
+    "original_filename": "Water__session121__clip007.mp4",
+    "signer": "User004",
+    "split": "",
+    "fps": "29.583333333333332",
+    "resolution": "2560x1440",
+    "duration": "3.189",
+    "license": "see HF card",
+    "paper": "",
+    "repository": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+    "download_url": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+    "sha256": "5f2b876788190c8a322b0f25868de7eb10a7096c15673310826092c5de1f4e61",
+    "phash": "f7e7e7f7e7c3c381",
+    "quality_score": "1.0",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

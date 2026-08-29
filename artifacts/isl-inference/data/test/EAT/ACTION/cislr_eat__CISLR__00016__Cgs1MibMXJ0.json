@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-df5a5fb7",
+  "label": "EAT",
+  "signer_id": "ACTION",
+  "source_dataset": "CISLR",
+  "source_video_filename": "eat__CISLR__00016__Cgs1MibMXJ0.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 106,
+    "frames_ge1_hand": 42,
+    "frames_2_hands": 0,
+    "usable_pct": 39.62,
+    "hand_counts_distribution": {
+      "0_hands": 64,
+      "1_hand": 42,
+      "2_hands": 0
+    }
+  },
+  "provenance": {
+    "word": "eat",
+    "normalized_word": "eat",
+    "dataset": "CISLR",
+    "original_label": "eat",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\CISLR\\videos\\Cgs1MibMXJ0.mp4",
+    "original_filename": "Cgs1MibMXJ0.mp4",
+    "signer": "action",
+    "split": "",
+    "fps": "25.0",
+    "resolution": "300x300",
+    "duration": "3.52",
+    "license": "research (see HF card)",
+    "paper": "https://aclanthology.org/2022.emnlp-main.707",
+    "repository": "https://huggingface.co/datasets/Exploration-Lab/CISLR",
+    "download_url": "https://huggingface.co/datasets/Exploration-Lab/CISLR",
+    "sha256": "b0de221a328819c99b4ae567cf837ffa1e5fc08a59f1cd848b1b8ae103cf20ea",
+    "phash": "ffe7ffffd3c3e3c3",
+    "quality_score": "0.85",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

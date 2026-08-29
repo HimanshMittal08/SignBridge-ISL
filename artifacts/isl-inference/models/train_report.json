@@ -1,0 +1,89 @@
+{
+  "held_out_test_signer": "USER001",
+  "train_sample_count": 48,
+  "test_sample_count": 8,
+  "test_accuracy": 0.75,
+  "test_loss": 1.3909,
+  "per_class_results": {
+    "EAT": {
+      "total_samples": 1,
+      "correct_predictions": 1,
+      "accuracy": 1.0
+    },
+    "GO": {
+      "total_samples": 1,
+      "correct_predictions": 1,
+      "accuracy": 1.0
+    },
+    "HELLO": {
+      "total_samples": 1,
+      "correct_predictions": 0,
+      "accuracy": 0.0
+    },
+    "HELP": {
+      "total_samples": 1,
+      "correct_predictions": 1,
+      "accuracy": 1.0
+    },
+    "NO": {
+      "total_samples": 1,
+      "correct_predictions": 0,
+      "accuracy": 0.0
+    },
+    "PLEASE": {
+      "total_samples": 1,
+      "correct_predictions": 1,
+      "accuracy": 1.0
+    },
+    "WATER": {
+      "total_samples": 1,
+      "correct_predictions": 1,
+      "accuracy": 1.0
+    },
+    "YES": {
+      "total_samples": 1,
+      "correct_predictions": 1,
+      "accuracy": 1.0
+    }
+  },
+  "leave_one_signer_out_cv": {
+    "signers": {
+      "USER001": {
+        "train_samples": 48,
+        "test_samples": 8,
+        "test_accuracy": 0.75
+      },
+      "USER002": {
+        "train_samples": 49,
+        "test_samples": 7,
+        "test_accuracy": 0.7143
+      },
+      "USER003": {
+        "train_samples": 49,
+        "test_samples": 7,
+        "test_accuracy": 0.8571
+      },
+      "USER004": {
+        "train_samples": 49,
+        "test_samples": 7,
+        "test_accuracy": 0.8571
+      },
+      "USER005": {
+        "train_samples": 49,
+        "test_samples": 7,
+        "test_accuracy": 1.0
+      },
+      "USER006": {
+        "train_samples": 49,
+        "test_samples": 7,
+        "test_accuracy": 0.7143
+      }
+    },
+    "mean_loso_accuracy": 0.8155
+  },
+  "suitability_assessment": {
+    "is_production_ready": false,
+    "is_dataset_sufficient_for_generalization": false,
+    "reason": "Dataset contains only 56 total clips across 8 classes (~7 clips per class). While technical pipeline execution (feature format, tensor shapes, GRU model weights) is 100% verified, 56 total samples is far below the required baseline threshold (minimum 80 clips per label per signer, target 1,920 clips) for a production-grade or generalizable model."
+  }
+}

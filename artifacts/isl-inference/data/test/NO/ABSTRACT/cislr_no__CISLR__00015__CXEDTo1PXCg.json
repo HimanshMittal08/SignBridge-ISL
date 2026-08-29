@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-8f72a8d5",
+  "label": "NO",
+  "signer_id": "ABSTRACT",
+  "source_dataset": "CISLR",
+  "source_video_filename": "no__CISLR__00015__CXEDTo1PXCg.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 94,
+    "frames_ge1_hand": 42,
+    "frames_2_hands": 0,
+    "usable_pct": 44.68,
+    "hand_counts_distribution": {
+      "0_hands": 52,
+      "1_hand": 42,
+      "2_hands": 0
+    }
+  },
+  "provenance": {
+    "word": "no",
+    "normalized_word": "no",
+    "dataset": "CISLR",
+    "original_label": "no",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\CISLR\\videos\\CXEDTo1PXCg.mp4",
+    "original_filename": "CXEDTo1PXCg.mp4",
+    "signer": "abstract",
+    "split": "",
+    "fps": "25.0",
+    "resolution": "300x300",
+    "duration": "3.12",
+    "license": "research (see HF card)",
+    "paper": "https://aclanthology.org/2022.emnlp-main.707",
+    "repository": "https://huggingface.co/datasets/Exploration-Lab/CISLR",
+    "download_url": "https://huggingface.co/datasets/Exploration-Lab/CISLR",
+    "sha256": "f8f09ff66980d082b8dcddfcdba4be3882d370f48b0e58d25aaa6c9827efda22",
+    "phash": "ffe7ffffd3e1c1c3",
+    "quality_score": "0.85",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

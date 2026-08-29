@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-51603a72",
+  "label": "HELLO",
+  "signer_id": "INCLUDE_MVI_0030",
+  "source_dataset": "INCLUDE",
+  "source_video_filename": "hello__INCLUDE__00567__MVI_0030.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 89,
+    "frames_ge1_hand": 89,
+    "frames_2_hands": 80,
+    "usable_pct": 100.0,
+    "hand_counts_distribution": {
+      "0_hands": 0,
+      "1_hand": 9,
+      "2_hands": 80
+    }
+  },
+  "provenance": {
+    "word": "hello",
+    "normalized_word": "hello",
+    "dataset": "INCLUDE",
+    "original_label": "hello",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\INCLUDE\\extracted\\Greetings\\48. Hello\\MVI_0030.MOV",
+    "original_filename": "MVI_0030.MOV",
+    "signer": "include_MVI_0030",
+    "split": "",
+    "fps": "25.0",
+    "resolution": "1920x1080",
+    "duration": "2.96",
+    "license": "CC-BY-4.0",
+    "paper": "https://doi.org/10.1145/3394171.3413528",
+    "repository": "https://github.com/AI4Bharat/INCLUDE",
+    "download_url": "https://zenodo.org/records/4010759",
+    "sha256": "1dae0bc5d76aa58e67e002949dbf16507c6bd24643602d525ba738e0356d5fbe",
+    "phash": "fefee6e6f6f00000",
+    "quality_score": "1.0",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

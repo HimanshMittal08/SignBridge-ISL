@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "clip_id": "test-9948c3fa",
+  "label": "GO",
+  "signer_id": "USER004",
+  "source_dataset": "ISL500",
+  "source_video_filename": "go__ISL500__00167__Go__session103__clip023.mp4",
+  "frame_count": 36,
+  "feature_shape": [
+    2,
+    21,
+    3
+  ],
+  "normalization": "wrist-relative; divide all xyz coordinates by wrist-to-middle-MCP xy distance",
+  "hand_slots": [
+    "left",
+    "right"
+  ],
+  "missing_hand": "zero-filled",
+  "detection_stats": {
+    "total_frames": 74,
+    "frames_ge1_hand": 29,
+    "frames_2_hands": 0,
+    "usable_pct": 39.19,
+    "hand_counts_distribution": {
+      "0_hands": 45,
+      "1_hand": 29,
+      "2_hands": 0
+    }
+  },
+  "provenance": {
+    "word": "go",
+    "normalized_word": "go",
+    "dataset": "ISL500",
+    "original_label": "go",
+    "video_path": "C:\\Users\\Vidit\\OneDrive\\Desktop\\IPD\\raw_datasets\\ISL500\\Videos\\User004\\Go__session103__clip023.mp4",
+    "original_filename": "Go__session103__clip023.mp4",
+    "signer": "User004",
+    "split": "",
+    "fps": "29.583333333333332",
+    "resolution": "2560x1440",
+    "duration": "2.48",
+    "license": "see HF card",
+    "paper": "",
+    "repository": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+    "download_url": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+    "sha256": "dced3bb8676e5c8dbc7f87e48097b0b30da4fdd6c325e0bb0fe920dc334ab78d",
+    "phash": "f7e7f7f7e7c38301",
+    "quality_score": "1.0",
+    "duplicate_status": "unique",
+    "review_status": "accepted"
+  }
+}

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "SignBridge"
+description = "A two-way Indian Sign Language communication workspace that keeps raw signs, interpretations, spoken transcripts, and sign concepts visible together in one live conversation."
+version = "1.0.0"
+id = "artifacts/signbridge"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20611
+
+[services.development]
+run = "pnpm --filter @workspace/signbridge run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/signbridge", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/signbridge/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20611"
+BASE_PATH = "/"
