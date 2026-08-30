@@ -271,6 +271,46 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .empty-state p { font-size: 12px; margin: 0; }
 .mobile-header { display: none; }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+/* ─── Text → ISL Sign Player ──────────────────────────────────── */
+.text-to-isl-panel { display: flex; flex-direction: column; gap: 0; }
+.text-to-isl-input-row { display: flex; gap: 8px; align-items: stretch; }
+.text-to-isl-input-row .search-input { flex: 1; }
+.text-to-isl-no-match { border: 1px dashed hsl(var(--border)); border-radius: 12px; padding: 16px 18px; background: hsl(var(--muted) / .5); }
+.text-to-isl-no-match .eyebrow { display: block; margin-bottom: 7px; }
+.text-to-isl-no-match p { color: hsl(var(--muted-foreground)); font-size: 11px; line-height: 1.55; margin: 0; }
+.text-to-isl-no-match em { font-style: italic; color: hsl(var(--foreground)); }
+
+.sign-player { border: 1px solid hsl(var(--border)); border-radius: 16px; background: hsl(var(--card)); overflow: hidden; }
+.sign-player__header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px 10px; border-bottom: 1px solid hsl(var(--border)); }
+.sign-player__title .eyebrow { display: block; }
+
+.sign-player__strip { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px; border-bottom: 1px solid hsl(var(--border)); background: hsl(39 26% 94%); }
+.sign-chip { border: 1px solid hsl(var(--border)); background: hsl(var(--card)); color: hsl(var(--muted-foreground)); font-family: var(--app-font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.sign-chip:hover { border-color: hsl(var(--primary)); color: hsl(var(--primary)); }
+.sign-chip--active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
+
+.sign-player__stage { display: flex; gap: 18px; padding: 20px 16px; align-items: flex-start; }
+.sign-player__info { flex: 1; min-width: 0; }
+.sign-player__gloss-name { font-family: var(--app-font-serif); font-size: 32px; font-weight: 500; letter-spacing: -.04em; margin: 0 0 7px; color: hsl(var(--foreground)); }
+.sign-player__meaning { color: hsl(var(--muted-foreground)); font-size: 12px; line-height: 1.55; margin: 0 0 10px; }
+.sign-player__category { font-family: var(--app-font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: hsl(var(--accent)); }
+
+.sign-frame { width: 130px; flex: 0 0 130px; height: 130px; border-radius: 14px; overflow: hidden; background: hsl(195 29% 23%); position: relative; display: grid; place-items: center; box-shadow: var(--shadow-sm); }
+.sign-frame--active { box-shadow: 0 0 0 3px hsl(var(--secondary)); }
+.sign-asset-video, .sign-asset-img { width: 100%; height: 100%; object-fit: cover; }
+
+.sign-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; width: 100%; height: 100%; position: relative; overflow: hidden; }
+.sign-placeholder__orbit { position: absolute; width: 120px; height: 120px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; }
+.sign-placeholder__gesture { position: absolute; width: 80px; height: 1px; background: linear-gradient(90deg, transparent, hsl(var(--secondary)), transparent); transform: rotate(-25deg); opacity: .55; }
+.sign-placeholder__label { color: hsl(var(--secondary)); font-family: var(--app-font-serif); font-size: 46px; line-height: 1; position: relative; z-index: 1; }
+.sign-placeholder__hint { position: absolute; bottom: 8px; color: hsl(195 12% 73%); font-family: var(--app-font-mono); font-size: 7px; letter-spacing: .08em; z-index: 1; }
+
+.sign-player__progress { padding: 0 16px 6px; color: hsl(var(--muted-foreground)); font-family: var(--app-font-mono); font-size: 10px; letter-spacing: .06em; }
+.sign-player__controls { display: flex; gap: 6px; padding: 10px 16px 14px; flex-wrap: wrap; }
+.sign-player__disclaimer { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 16px; border-top: 1px solid hsl(var(--border)); background: hsl(39 26% 94%); flex-wrap: wrap; }
+.sign-player__disclaimer .eyebrow { display: inline; }
+
+/* ─────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .sidebar { width: 212px; flex-basis: 212px; }
   .main { width: calc(100% - 212px); }
