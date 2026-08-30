@@ -7,7 +7,8 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import { TextToISLPanel } from '@/components/SignPlayer';
+import { SignPlayer } from '@/components/SignPlayer';
+import { mapTextToISL } from '@/lib/islMapper';
 
 type Direction = 'signer' | 'hearing';
 type Message = {
@@ -21,6 +22,7 @@ type Message = {
   timestamp: string;
   status: string;
   emergency?: boolean;
+  textToIsl?: boolean;
 };
 type SignConcept = {
   id: string;
@@ -217,6 +219,13 @@ function HomePage() {
 
 function MessageBubble({ message, alternative, onAlternative, onSpeak }: { message: Message; alternative?: string; onAlternative: (value: string) => void; onSpeak: (text: string) => void }) {
   const isSigner = message.direction === 'signer';
+  const islMapping = useMemo(() => {
+    if (!isSigner && message.textToIsl && message.exactTranscript) {
+      return mapTextToISL(message.exactTranscript);
+    }
+    return null;
+  }, [isSigner, message.textToIsl, message.exactTranscript]);
+
   return <article className={`message ${isSigner ? 'signer' : 'hearing'}`} data-testid={`message-${message.id}`}>
     <div className="message-avatar" aria-hidden="true">{isSigner ? <Hand size={16} /> : <Ear size={16} />}</div>
     <div className="message-body">
@@ -225,7 +234,24 @@ function MessageBubble({ message, alternative, onAlternative, onSpeak }: { messa
          {message.emergency && <div className="emergency-note" role="alert"><Bell size={13} /> Emergency context detected</div>}
         {isSigner ? <><span className="bubble-label">Interpretation</span><div className="bubble-text" data-testid={`text-interpretation-${message.id}`}>{alternative || message.interpretation}</div><div className="raw-line"><b>Exact signs:</b> {message.exactTranscript}</div><div className="concept-line">{message.concepts.map(concept => <span className="concept-tag" key={concept}>{concept}</span>)}</div>
           {message.alternatives && <div className="alternative-list"><span>Try:</span>{message.alternatives.map(item => <button key={item} className={`alternative-button ${alternative === item ? 'chosen' : ''}`} onClick={() => onAlternative(item)} data-testid={`button-alternative-${message.id}-${item.toLowerCase().replaceAll(' ', '-')}`}>{item}</button>)}</div>}
-        </> : <><span className="bubble-label">Exact spoken transcript</span><div className="bubble-text" data-testid={`text-transcript-${message.id}`}>{message.exactTranscript}</div><div className="concept-line">{message.concepts.map(concept => <span className="concept-tag" key={concept}>{concept}</span>)}</div></>}
+        </> : <><span className="bubble-label">Exact spoken transcript</span><div className="bubble-text" data-testid={`text-transcript-${message.id}`}>{message.exactTranscript}</div>
+          {islMapping && (
+            <div className="message-isl-player-wrap" style={{ marginTop: 14 }}>
+              {islMapping.matched ? (
+                <SignPlayer glosses={islMapping.glosses} />
+              ) : (
+                <div className="text-to-isl-no-match" style={{ marginTop: 10 }}>
+                  <span className="eyebrow">Outside demo vocabulary</span>
+                  <p>
+                    No supported ISL concepts were found in <em>"{message.exactTranscript}"</em>.<br />
+                    The current demo vocabulary covers: HELLO, HELP, WATER, PLEASE, YES, NO, GO, EAT.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+          {!islMapping && message.concepts.length > 0 && <div className="concept-line">{message.concepts.map(concept => <span className="concept-tag" key={concept}>{concept}</span>)}</div>}
+        </>}
       </div>
       <div style={{ display: 'flex', justifyContent: isSigner ? 'flex-start' : 'flex-end', marginTop: 7 }}><button className="icon-button" style={{ width: 28, height: 28 }} onClick={() => onSpeak(alternative || message.exactTranscript)} aria-label={`Replay ${isSigner ? 'interpretation' : 'spoken transcript'}`} data-testid={`button-replay-${message.id}`}><Volume2 size={14} /></button></div>
     </div>
@@ -612,6 +638,7 @@ function ConversationPage() {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
       status: emergency ? 'Emergency context' : 'Spoken',
       emergency,
+      textToIsl: true,
     }]);
     setDraft('');
   };
@@ -648,14 +675,6 @@ function ConversationPage() {
         </section>
         <section className="panel side-panel"><div className="eyebrow">Try a scene</div><h3>Demo scenarios</h3><div className="scenario-row">{['Everyday hello', 'Need assistance', 'Clarify a phrase'].map(item => <button className="scenario-button" key={item} onClick={() => runScenario(item)} data-testid={`button-scenario-${item.toLowerCase().replaceAll(' ', '-')}`}><strong>{item}</strong><span>{item === 'Need assistance' ? 'An urgent request with visible context.' : item === 'Clarify a phrase' ? 'Compare two possible meanings.' : 'A simple opening exchange.'}</span></button>)}</div><div className="availability"><strong>Now showing: {scenario}</strong>{messages[messages.length - 1]?.status || 'No messages yet'} · {messages.length} messages</div></section>
         <section className="panel side-panel"><div className="eyebrow">Concept palette</div><h3>Tap to add context</h3><div className="selected-concepts">{selectedConcepts.map(label => <button className="concept-tag" key={label} onClick={() => toggleConcept(label)} aria-label={`Remove ${label} concept`} data-testid={`button-remove-concept-${label.toLowerCase().replaceAll(' ', '-')}`}>{label} <X size={10} style={{ verticalAlign: 'middle' }} /></button>)}</div><div className="concept-line" style={{ marginTop: 11 }}>{concepts.slice(0, 6).map(concept => <button className="alternative-button" key={concept.id} onClick={() => toggleConcept(concept.label)} data-testid={`button-concept-${concept.id}`}>{concept.label}</button>)}</div></section>
-        <section className="panel side-panel" aria-label="Text to ISL sign representation">
-          <div className="eyebrow">Text → ISL</div>
-          <h3 style={{ marginBottom: 14 }}>Sign representation</h3>
-          <p style={{ color: 'hsl(var(--muted-foreground))', fontSize: 11, lineHeight: 1.55, margin: '0 0 14px' }}>
-            Type English text to see the matching ISL sign sequence. Concept-level mapping only — not a full ISL translation.
-          </p>
-          <TextToISLPanel />
-        </section>
         <section className="panel side-panel debug-panel"><div className="eyebrow">Optional transparency</div><h3>Developer diagnostics</h3><button className="button small" style={{ marginTop: 12, background: 'hsl(195 24% 29%)', color: 'hsl(40 33% 96%)', borderColor: 'hsl(195 24% 35%)' }} onClick={() => setDebug(!debug)} data-testid="button-toggle-diagnostics">{debug ? 'Hide diagnostics' : 'Show diagnostics'} <Terminal size={13} /></button>{debug && <div><div className="debug-line"><span>capture.state</span><b>{mode === 'demo' ? 'sandbox' : cameraStatus}</b></div><div className="debug-line"><span>hand.model</span><b>{mode === 'demo' ? 'inactive' : modelStatus}</b></div><div className="debug-line"><span>hand.detected</span><b>{mode === 'live' && modelStatus === 'ready' ? handDetected ? 'yes' : 'no' : 'unavailable'}</b></div><div className="debug-line"><span>handedness</span><b>{hands.map(hand => hand.handedness).join(', ') || '—'}</b></div><div className="debug-line"><span>landmarks</span><b>{hands.map(hand => hand.landmarks.length).join(', ') || '0'} points/hand</b></div><div className="debug-line"><span>inference.ms</span><b>{modelStatus === 'ready' ? `${inferenceFps} FPS · ${inferenceLatency} ms` : '—'}</b></div><div className="debug-line"><span>inference.backend</span><b>{backendStatus === 'connected' ? 'connected (FastAPI :8000)' : 'Inference offline'}</b></div><div className="debug-line"><span>inference.status</span><b>{inferenceHint}</b></div><div className="debug-line"><span>prediction.live</span><b>{livePrediction ? `${livePrediction.label} (${Math.round(livePrediction.confidence * 100)}%)` : 'none'}</b></div><div className="debug-line"><span>audio.output</span><b>{'speechSynthesis' in window ? 'supported' : 'unavailable'}</b></div></div>}</section>
       </aside>
     </div>

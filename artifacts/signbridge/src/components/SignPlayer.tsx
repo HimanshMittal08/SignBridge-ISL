@@ -33,7 +33,12 @@ interface SignFrameProps {
  * component can be swapped in later with zero structural changes.
  */
 function SignFrame({ gloss, active }: SignFrameProps) {
-  const hasAsset = Boolean(gloss.asset);
+  const [hasError, setHasError] = useState(false);
+  const hasAsset = Boolean(gloss.asset) && !hasError;
+
+  useEffect(() => {
+    setHasError(false);
+  }, [gloss.asset]);
 
   return (
     <div
@@ -42,7 +47,6 @@ function SignFrame({ gloss, active }: SignFrameProps) {
       role="img"
     >
       {hasAsset ? (
-        /* Future: render <video> or <img> from gloss.asset here */
         gloss.asset?.endsWith('.mp4') || gloss.asset?.endsWith('.webm') ? (
           <video
             key={gloss.asset}
@@ -51,6 +55,7 @@ function SignFrame({ gloss, active }: SignFrameProps) {
             loop
             muted
             playsInline
+            onError={() => setHasError(true)}
             className="sign-asset-video"
             aria-label={`Sign demonstration for ${gloss.label}`}
           />
@@ -58,16 +63,17 @@ function SignFrame({ gloss, active }: SignFrameProps) {
           <img
             src={gloss.asset ?? ''}
             alt={`Sign demonstration for ${gloss.label}`}
+            onError={() => setHasError(true)}
             className="sign-asset-img"
           />
         )
       ) : (
-        /* ── Placeholder (shown until real assets are available) ── */
+        /* ── Placeholder (shown when asset pending or load error) ── */
         <div className="sign-placeholder" aria-hidden="true">
           <div className="sign-placeholder__orbit" />
           <div className="sign-placeholder__gesture" />
           <span className="sign-placeholder__label">{gloss.label[0]}</span>
-          <span className="sign-placeholder__hint">asset pending</span>
+          <span className="sign-placeholder__hint">{hasError ? 'load error' : 'asset pending'}</span>
         </div>
       )}
     </div>
@@ -181,16 +187,18 @@ export function SignPlayer({ glosses, intervalMs = 2000, onClose }: SignPlayerPr
       {/* Gloss strip (breadcrumb-style) */}
       <div className="sign-player__strip" role="list" aria-label="Sign sequence">
         {glosses.map((g, i) => (
-          <button
-            key={`${g.label}-${i}`}
-            className={`sign-chip ${i === current ? 'sign-chip--active' : ''}`}
-            onClick={() => { setPlaying(false); clearTimer(); goTo(i); }}
-            aria-current={i === current ? 'true' : undefined}
-            aria-label={`Go to sign ${i + 1}: ${g.label}`}
-            role="listitem"
-          >
-            {g.label}
-          </button>
+          <div key={`${g.label}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            {i > 0 && <span className="sign-chip-arrow" aria-hidden="true">→</span>}
+            <button
+              className={`sign-chip ${i === current ? 'sign-chip--active' : ''}`}
+              onClick={() => { setPlaying(false); clearTimer(); goTo(i); }}
+              aria-current={i === current ? 'true' : undefined}
+              aria-label={`Go to sign ${i + 1}: ${g.label}`}
+              role="listitem"
+            >
+              {g.label}
+            </button>
+          </div>
         ))}
       </div>
 

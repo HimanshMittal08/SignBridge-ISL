@@ -280,7 +280,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .text-to-isl-no-match p { color: hsl(var(--muted-foreground)); font-size: 11px; line-height: 1.55; margin: 0; }
 .text-to-isl-no-match em { font-style: italic; color: hsl(var(--foreground)); }
 
-.sign-player { border: 1px solid hsl(var(--border)); border-radius: 16px; background: hsl(var(--card)); overflow: hidden; }
+.sign-player { border: 1px solid hsl(var(--border)); border-radius: 16px; background: hsl(var(--card)); color: hsl(var(--foreground)); overflow: hidden; }
+.message.hearing .bubble .sign-player { text-align: left; }
+.sign-chip-arrow { color: hsl(var(--muted-foreground)); font-size: 11px; margin: 0 1px; }
+.message.hearing .bubble .text-to-isl-no-match { background: hsl(var(--background)); color: hsl(var(--foreground)); text-align: left; }
 .sign-player__header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px 10px; border-bottom: 1px solid hsl(var(--border)); }
 .sign-player__title .eyebrow { display: block; }
 
