@@ -1,52 +1,54 @@
-"""Test script for SignBridge FastAPI server using real landmark data from data/test.
+"""Regression and integration tests for FastAPI live ISL recognition server.
+
+Tests:
+1. GET /health -> verify status 200, model_loaded=True, labels count
+2. POST /predict -> valid 36x126 landmark sequence -> status 200, return label, confidence, probabilities
+3. POST /predict -> invalid sequence length -> status 400
 """
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
+import unittest
 import numpy as np
 from fastapi.testclient import TestClient
-from server import app
+from server import app, load_model
 
 
-def test_fastapi_server():
-    with TestClient(app) as client:
-        # 1. Test /health
-        health_resp = client.get("/health")
-        assert health_resp.status_code == 200, f"Health check failed: {health_resp.text}"
-        health_data = health_resp.json()
-        print("Health response:", health_data)
-        assert health_data["status"] == "ok"
-        assert health_data["model_loaded"] is True
-        assert health_data["num_classes"] == 8
+class TestServerAPI(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        load_model()
+        cls.client = TestClient(app)
 
-        # 2. Test /predict with real .npz clip
-        base_dir = Path(__file__).resolve().parent
-        sample_npz = base_dir / "data" / "test" / "HELLO" / "USER001" / "isl500_hello__ISL500__00087__Hello__session101__clip021.npz"
-        assert sample_npz.exists(), f"Sample npz file not found at {sample_npz}"
+    def test_health_endpoint(self):
+        response = self.client.get("/health")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["status"], "ok")
+        self.assertTrue(data["model_loaded"])
+        self.assertEqual(data["num_classes"], 8)
+        self.assertIn("HELLO", data["labels"])
 
-        with np.load(sample_npz, allow_pickle=True) as data:
-            landmarks = data["landmarks"].astype(np.float32)  # Shape: (36, 2, 21, 3)
-            meta = json.loads(str(data["metadata"]))
+    def test_predict_valid_sequence(self):
+        dummy_seq = np.random.normal(0, 0.1, (36, 126)).tolist()
+        payload = {"landmarks": dummy_seq}
+        response = self.client.post("/predict", json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("label", data)
+        self.assertIn("confidence", data)
+        self.assertIn("probabilities", data)
+        self.assertIsInstance(data["label"], str)
+        self.assertGreaterEqual(data["confidence"], 0.0)
+        self.assertLessEqual(data["confidence"], 1.0)
+        self.assertEqual(len(data["probabilities"]), 8)
 
-        # Flatten to (36, 126)
-        sequence_flat = landmarks.reshape(36, 126).tolist()
-
-        pred_resp = client.post("/predict", json={"landmarks": sequence_flat})
-        assert pred_resp.status_code == 200, f"Prediction failed: {pred_resp.text}"
-        pred_data = pred_resp.json()
-        print("\nReal sample prediction response:")
-        print(f"Ground Truth Label: {meta['label']}")
-        print(f"Predicted Label   : {pred_data['label']}")
-        print(f"Confidence        : {pred_data['confidence']}")
-        print(f"Probabilities     : {pred_data['probabilities']}")
-
-        assert "label" in pred_data
-        assert "confidence" in pred_data
-        assert "probabilities" in pred_data
-        print("\nAll FastAPI tests passed successfully!")
+    def test_predict_invalid_sequence_length(self):
+        invalid_seq = np.zeros((10, 126)).tolist()
+        payload = {"landmarks": invalid_seq}
+        response = self.client.post("/predict", json=payload)
+        self.assertEqual(response.status_code, 400)
 
 
 if __name__ == "__main__":
-    test_fastapi_server()
+    unittest.main()

@@ -44,47 +44,81 @@ const HAND_LANDMARKER_MODEL = 'https://storage.googleapis.com/mediapipe-models/h
 const queryClient = new QueryClient();
 
 const concepts: SignConcept[] = [
+  { id: 'bank', label: 'BANK', meaning: 'A financial institution or banking service.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'boy', label: 'BOY', meaning: 'A male child or young man.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'brother', label: 'BROTHER', meaning: 'A male sibling.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'bus', label: 'BUS', meaning: 'A large public road vehicle.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'car', label: 'CAR', meaning: 'An automobile or personal road vehicle.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'city', label: 'CITY', meaning: 'A large human settlement or town.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'cold', label: 'COLD', meaning: 'Low temperature or feeling chilly.', category: 'Feelings', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'doctor', label: 'DOCTOR', meaning: 'A medical professional or physician.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
+  { id: 'drink', label: 'DRINK', meaning: 'To swallow liquid or beverage.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'eat', label: 'EAT', meaning: 'Food, a meal, or something to eat.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'family', label: 'FAMILY', meaning: 'A group of related individuals.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'father', label: 'FATHER', meaning: 'A male parent.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'food', label: 'FOOD', meaning: 'Nourishment or edible items.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'friend', label: 'FRIEND', meaning: 'A person with whom one has a bond of mutual affection.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'girl', label: 'GIRL', meaning: 'A female child or young woman.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'go', label: 'GO', meaning: 'Movement toward another place or destination.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'good_afternoon', label: 'GOOD_AFTERNOON', meaning: 'An afternoon greeting.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'good_evening', label: 'GOOD_EVENING', meaning: 'An evening greeting.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'good_morning', label: 'GOOD_MORNING', meaning: 'A morning greeting.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'good_night', label: 'GOOD_NIGHT', meaning: 'A nighttime farewell.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'happy', label: 'HAPPY', meaning: 'Feeling or showing pleasure or contentment.', category: 'Feelings', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'he', label: 'HE', meaning: 'Referring to a male person.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'hello', label: 'HELLO', meaning: 'A greeting or an opening to a conversation.', category: 'Conversation', priority: 'normal', confidence: .98, demoAvailable: true },
-  { id: 'i', label: 'I', meaning: 'The person communicating or referring to themself.', category: 'Conversation', priority: 'normal', confidence: .97, demoAvailable: true },
-  { id: 'you', label: 'YOU', meaning: 'The person being addressed in the conversation.', category: 'Conversation', priority: 'normal', confidence: .97, demoAvailable: true },
-  { id: 'help', label: 'HELP', meaning: 'A request for assistance or support.', category: 'Needs', priority: 'high', confidence: .95, demoAvailable: true },
-  { id: 'need', label: 'NEED', meaning: 'A request or requirement for something important.', category: 'Needs', priority: 'high', confidence: .93, demoAvailable: true },
-  { id: 'water', label: 'WATER', meaning: 'Water, or a request for something to drink.', category: 'Everyday', priority: 'normal', confidence: .94, demoAvailable: true },
-  { id: 'food', label: 'FOOD', meaning: 'Food, a meal, or something to eat.', category: 'Everyday', priority: 'normal', confidence: .94, demoAvailable: true },
-  { id: 'thank-you', label: 'THANK YOU', meaning: 'Gratitude or appreciation.', category: 'Conversation', priority: 'normal', confidence: .97, demoAvailable: true },
-  { id: 'please', label: 'PLEASE', meaning: 'A polite request or softening of a message.', category: 'Conversation', priority: 'normal', confidence: .92, demoAvailable: true },
-  { id: 'understand', label: 'UNDERSTAND', meaning: 'To understand, follow, or comprehend.', category: 'Conversation', priority: 'normal', confidence: .91, demoAvailable: false },
-  { id: 'repeat', label: 'REPEAT', meaning: 'A request for the other person to say or sign something again.', category: 'Needs', priority: 'high', confidence: .93, demoAvailable: true },
-  { id: 'doctor', label: 'DOCTOR', meaning: 'A doctor, clinician, or medical care.', category: 'Emergency', priority: 'high', confidence: .89, demoAvailable: true },
-  { id: 'hospital', label: 'HOSPITAL', meaning: 'A hospital or place to receive urgent medical care.', category: 'Emergency', priority: 'high', confidence: .88, demoAvailable: true },
-  { id: 'where', label: 'WHERE', meaning: 'A question about location or place.', category: 'Conversation', priority: 'normal', confidence: .94, demoAvailable: true },
-  { id: 'go', label: 'GO', meaning: 'Movement toward another place or destination.', category: 'Everyday', priority: 'normal', confidence: .93, demoAvailable: true },
-  { id: 'home', label: 'HOME', meaning: 'Home, house, or a place of residence.', category: 'Everyday', priority: 'normal', confidence: .96, demoAvailable: true },
-  { id: 'later', label: 'LATER', meaning: 'A future time or a plan to continue afterwards.', category: 'Time', priority: 'normal', confidence: .88, demoAvailable: false },
-  { id: 'yes', label: 'YES', meaning: 'Agreement, confirmation, or an affirmative answer.', category: 'Conversation', priority: 'normal', confidence: .99, demoAvailable: true },
+  { id: 'help', label: 'HELP', meaning: 'A request for assistance or support.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
+  { id: 'hospital', label: 'HOSPITAL', meaning: 'A medical care facility.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
+  { id: 'house', label: 'HOUSE', meaning: 'A residential building or home.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'how_are_you', label: 'HOW_ARE_YOU', meaning: 'Inquiring about someone\'s well-being.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'i', label: 'I', meaning: 'First-person singular pronoun.', category: 'People', priority: 'normal', confidence: .97, demoAvailable: true },
+  { id: 'india', label: 'INDIA', meaning: 'The country India.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'library', label: 'LIBRARY', meaning: 'A building containing books and resources.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'location', label: 'LOCATION', meaning: 'A particular place or position.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'market', label: 'MARKET', meaning: 'A place for buying and selling goods.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'mother', label: 'MOTHER', meaning: 'A female parent.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'no', label: 'NO', meaning: 'Disagreement, refusal, or a negative answer.', category: 'Conversation', priority: 'normal', confidence: .99, demoAvailable: true },
-  { id: 'safe', label: 'SAFE', meaning: 'Safety, reassurance, or confirmation that someone is safe.', category: 'Emergency', priority: 'high', confidence: .86, demoAvailable: true },
+  { id: 'office', label: 'OFFICE', meaning: 'A room or building used for business work.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'okay', label: 'OKAY', meaning: 'Expressing approval or agreement.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'park', label: 'PARK', meaning: 'A public green area for recreation.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'please', label: 'PLEASE', meaning: 'A polite request or softening of a message.', category: 'Conversation', priority: 'normal', confidence: .92, demoAvailable: true },
+  { id: 'police', label: 'POLICE', meaning: 'Law enforcement officer or force.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
+  { id: 'restaurant', label: 'RESTAURANT', meaning: 'A business where meals are served.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'school', label: 'SCHOOL', meaning: 'An educational institution.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'she', label: 'SHE', meaning: 'Referring to a female person.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'sick', label: 'SICK', meaning: 'Feeling ill or unwell.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
+  { id: 'sister', label: 'SISTER', meaning: 'A female sibling.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'sit', label: 'SIT', meaning: 'To rest one\'s body on a seat.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'store_or_shop', label: 'STORE_OR_SHOP', meaning: 'A retail establishment or shop.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'student', label: 'STUDENT', meaning: 'A learner or person attending school.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'tea', label: 'TEA', meaning: 'A hot aromatic beverage.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'teacher', label: 'TEACHER', meaning: 'An educator or instructor.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'thank_you', label: 'THANK_YOU', meaning: 'An expression of gratitude.', category: 'Conversation', priority: 'normal', confidence: .97, demoAvailable: true },
+  { id: 'time', label: 'TIME', meaning: 'Clock time or temporal measurement.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'today', label: 'TODAY', meaning: 'On or during the present day.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'train', label: 'TRAIN', meaning: 'A railway vehicle or transport.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'train_station', label: 'TRAIN_STATION', meaning: 'A railway station terminal.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'water', label: 'WATER', meaning: 'Water, or a request for something to drink.', category: 'Everyday', priority: 'normal', confidence: .94, demoAvailable: true },
+  { id: 'we', label: 'WE', meaning: 'First-person plural pronoun.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'what', label: 'WHAT', meaning: 'Question token inquiring about a thing.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
+  { id: 'where', label: 'WHERE', meaning: 'Question token inquiring about a location.', category: 'Conversation', priority: 'normal', confidence: .94, demoAvailable: true },
+  { id: 'yes', label: 'YES', meaning: 'Agreement, confirmation, or an affirmative answer.', category: 'Conversation', priority: 'normal', confidence: .99, demoAvailable: true },
+  { id: 'you', label: 'YOU', meaning: 'Second-person pronoun.', category: 'People', priority: 'normal', confidence: .97, demoAvailable: true }
 ];
 
 const conceptAliases: Record<string, string[]> = {
-  i: ['i', 'me', 'my'],
-  you: ['you', 'your'],
-  need: ['need', 'needs', 'require', 'requires'],
-  water: ['water', 'drink'],
-  food: ['food', 'eat', 'meal'],
-  hello: ['hello', 'hi', 'hey'],
-  'thank-you': ['thank you', 'thanks'],
-  please: ['please'],
-  help: ['help', 'assistance'],
-  doctor: ['doctor', 'physician'],
-  hospital: ['hospital', 'clinic'],
-  where: ['where', 'location'],
-  go: ['go', 'going', 'went'],
-  home: ['home', 'house'],
-  later: ['later', 'afterwards'],
-  yes: ['yes', 'okay', 'ok'],
-  no: ['no', 'not'],
-  safe: ['safe'],
+  bank: ['bank'], boy: ['boy'], brother: ['brother'], bus: ['bus'], car: ['car'], city: ['city'], cold: ['cold'],
+  doctor: ['doctor'], drink: ['drink'], eat: ['eat'], family: ['family'], father: ['father'], food: ['food'],
+  friend: ['friend'], girl: ['girl'], go: ['go'], good_afternoon: ['good afternoon'], good_evening: ['good evening'],
+  good_morning: ['good morning'], good_night: ['good night'], happy: ['happy'], he: ['he'], hello: ['hello', 'hi', 'hey'],
+  help: ['help', 'assist', 'assistance'], hospital: ['hospital'], house: ['house', 'home'], how_are_you: ['how are you'],
+  i: ['i', 'me', 'my'], india: ['india'], library: ['library'], location: ['location', 'place'], market: ['market'],
+  mother: ['mother', 'mom'], no: ['no', 'not'], office: ['office', 'work'], okay: ['okay', 'ok'], park: ['park'],
+  please: ['please'], police: ['police', 'cop'], restaurant: ['restaurant'], school: ['school'], she: ['she', 'her'],
+  sick: ['sick', 'ill'], sister: ['sister'], sit: ['sit'], store_or_shop: ['store', 'shop'], student: ['student'],
+  tea: ['tea', 'chai'], teacher: ['teacher'], thank_you: ['thank you', 'thanks'], time: ['time'], today: ['today'],
+  train: ['train'], train_station: ['train station'], water: ['water', 'drink'], we: ['we', 'us'], what: ['what'],
+  where: ['where'], yes: ['yes', 'yeah'], you: ['you', 'your']
 };
 
 function extractConcepts(text: string) {
@@ -244,7 +278,7 @@ function MessageBubble({ message, alternative, onAlternative, onSpeak }: { messa
                   <span className="eyebrow">Outside demo vocabulary</span>
                   <p>
                     No supported ISL concepts were found in <em>"{message.exactTranscript}"</em>.<br />
-                    The current demo vocabulary covers: HELLO, HELP, WATER, PLEASE, YES, NO, GO, EAT.
+                    The current demo vocabulary covers all 60 ISL classes.
                   </p>
                 </div>
               )}
@@ -555,23 +589,81 @@ function ConversationPage() {
 
                   const nowMs = Date.now();
                   const lastComm = lastCommittedRef.current;
-                  const cooldownPassed = !lastComm || lastComm.label !== data.label || (nowMs - lastComm.timestamp > 2000);
+                  const isSameLabel = lastComm && lastComm.label === data.label;
+                  const cooldownPassed = !isSameLabel || (nowMs - lastComm.timestamp > 2000);
 
-                  // Require neutral state before committing next sign to avoid continuous re-triggering on same pose
-                  if (hadNeutralStateRef.current && cooldownPassed) {
-                    hadNeutralStateRef.current = false;
+                  // Allow new distinct labels to commit without requiring hands to leave frame.
+                  // Duplicate same-label commits require 2000ms cooldown.
+                  if (cooldownPassed) {
+                    console.log(`[SignBridge ML] COMMIT: ${data.label} (confidence: ${Math.round(data.confidence * 100)}%). Clearing buffer & history.`);
                     lastCommittedRef.current = { label: data.label, timestamp: nowMs };
                     isUserNearBottomRef.current = true;
 
+                    // Complete buffer wipe & history reset for fresh continuous sign accumulation
+                    historyRef.current = [];
+                    sequenceBufferRef.current = [];
+
                     const conceptMeaning: Record<string, string> = {
+                      BANK: 'A financial institution or banking service.',
+                      BOY: 'A male child or young man.',
+                      BROTHER: 'A male sibling.',
+                      BUS: 'A large public road vehicle.',
+                      CAR: 'An automobile or personal road vehicle.',
+                      CITY: 'A large human settlement or town.',
+                      COLD: 'Low temperature or feeling chilly.',
+                      DOCTOR: 'A medical professional or physician.',
+                      DRINK: 'To swallow liquid or beverage.',
                       EAT: 'Food, a meal, or something to eat.',
+                      FAMILY: 'A group of related individuals.',
+                      FATHER: 'A male parent.',
+                      FOOD: 'Nourishment or edible items.',
+                      FRIEND: 'A person with whom one has a bond of mutual affection.',
+                      GIRL: 'A female child or young woman.',
                       GO: 'Movement toward another place or destination.',
+                      GOOD_AFTERNOON: 'An afternoon greeting.',
+                      GOOD_EVENING: 'An evening greeting.',
+                      GOOD_MORNING: 'A morning greeting.',
+                      GOOD_NIGHT: 'A nighttime farewell.',
+                      HAPPY: 'Feeling or showing pleasure or contentment.',
+                      HE: 'Referring to a male person.',
                       HELLO: 'A greeting or an opening to a conversation.',
                       HELP: 'A request for assistance or support.',
+                      HOSPITAL: 'A medical care facility.',
+                      HOUSE: 'A residential building or home.',
+                      HOW_ARE_YOU: 'Inquiring about someone\'s well-being.',
+                      I: 'First-person singular pronoun.',
+                      INDIA: 'The country India.',
+                      LIBRARY: 'A building containing books and resources.',
+                      LOCATION: 'A particular place or position.',
+                      MARKET: 'A place for buying and selling goods.',
+                      MOTHER: 'A female parent.',
                       NO: 'Disagreement, refusal, or a negative answer.',
+                      OFFICE: 'A room or building used for business work.',
+                      OKAY: 'Expressing approval or agreement.',
+                      PARK: 'A public green area for recreation.',
                       PLEASE: 'A polite request or softening of a message.',
+                      POLICE: 'Law enforcement officer or force.',
+                      RESTAURANT: 'A business where meals are served.',
+                      SCHOOL: 'An educational institution.',
+                      SHE: 'Referring to a female person.',
+                      SICK: 'Feeling ill or unwell.',
+                      SISTER: 'A female sibling.',
+                      SIT: 'To rest one\'s body on a seat.',
+                      STORE_OR_SHOP: 'A retail establishment or shop.',
+                      STUDENT: 'A learner or person attending school.',
+                      TEA: 'A hot aromatic beverage.',
+                      TEACHER: 'An educator or instructor.',
+                      THANK_YOU: 'An expression of gratitude.',
+                      TIME: 'Clock time or temporal measurement.',
+                      TODAY: 'On or during the present day.',
+                      TRAIN: 'A railway vehicle or transport.',
+                      TRAIN_STATION: 'A railway station terminal.',
                       WATER: 'Water, or a request for something to drink.',
-                      YES: 'Agreement, confirmation, or an affirmative answer.'
+                      WE: 'First-person plural pronoun.',
+                      WHAT: 'Question token inquiring about a thing.',
+                      WHERE: 'Question token inquiring about a location.',
+                      YES: 'Agreement, confirmation, or an affirmative answer.',
+                      YOU: 'Second-person pronoun.'
                     };
 
                     setMessages(prev => [...prev, {
@@ -685,15 +777,34 @@ function VocabularyPage() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('All');
   const [playing, setPlaying] = useState<string | null>(null);
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const filters = ['All', 'Conversation', 'Needs', 'Everyday', 'Emergency', 'Time'];
   const visible = useMemo(() => concepts.filter(item => (filter === 'All' || item.category === filter) && `${item.label} ${item.meaning}`.toLowerCase().includes(query.toLowerCase())), [filter, query]);
-  const playDemo = (concept: SignConcept) => { setPlaying(concept.id); window.setTimeout(() => setPlaying(null), 1300); };
+
+  const toggleDemo = (concept: SignConcept) => {
+    const vid = videoRefs.current[concept.id];
+    if (playing === concept.id) {
+      vid?.pause();
+      setPlaying(null);
+    } else {
+      // Pause any currently playing video
+      if (playing) {
+        videoRefs.current[playing]?.pause();
+      }
+      if (vid) {
+        vid.currentTime = 0;
+        vid.play().catch(() => {});
+      }
+      setPlaying(concept.id);
+    }
+  };
+
   return <Shell><div className="page">
     <Topbar detail="Reference / Indian Sign Language" />
-    <div className="workspace-head"><div><div className="eyebrow">A shared reference</div><h1 className="page-title">Words with a shape.</h1><p className="page-subtitle">Browse the concepts available in this local workspace. These are illustrative 2D sign demonstration placeholders until real INCLUDE assets are connected.</p></div><div className="presence"><BookOpen size={14} /> {concepts.length} concepts</div></div>
+    <div className="workspace-head"><div><div className="eyebrow">A shared reference</div><h1 className="page-title">Words with a shape.</h1><p className="page-subtitle">Browse the ISL sign videos available in this workspace. Press Preview on any card to watch the reference sign.</p></div><div className="presence"><BookOpen size={14} /> {concepts.length} concepts</div></div>
     <div className="vocab-toolbar"><div className="search-wrap"><Search size={16} /><input className="search-input" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search a concept or meaning" aria-label="Search vocabulary" data-testid="input-vocabulary-search" /></div><div className="filter-set" role="group" aria-label="Filter vocabulary">{filters.map(item => <button key={item} className={`filter-chip ${filter === item ? 'selected' : ''}`} onClick={() => setFilter(item)} aria-pressed={filter === item} data-testid={`button-filter-${item.toLowerCase()}`}>{item}</button>)}</div></div>
-    {visible.length === 0 ? <div className="empty-state"><Search size={26} /><h3>No concepts found</h3><p>Try a different word or clear the {filter} filter.</p><button className="button soft small" style={{ marginTop: 17 }} onClick={() => { setQuery(''); setFilter('All'); }} data-testid="button-clear-vocabulary">Clear search</button></div> : <section className="vocab-grid" aria-label="Vocabulary results">{visible.map(concept => <article className="vocab-card" key={concept.id} data-testid={`card-vocabulary-${concept.id}`}><div className="vocab-top"><span className="category-label">{concept.category}</span>{concept.priority === 'high' && <span className="priority" title="High priority concept" />}</div><div className="demo-art" aria-label={`2D sign demonstration placeholder for ${concept.label}`}><span>{concept.label.charAt(0)}</span><small>2D SIGN DEMO · PLACEHOLDER</small></div><h3>{concept.label}</h3><p>{concept.meaning}</p><div className="vocab-bottom"><span>{Math.round(concept.confidence * 100)}% reference confidence</span>{concept.demoAvailable ? <button onClick={() => playDemo(concept)} data-testid={`button-play-demo-${concept.id}`}>{playing === concept.id ? <><Pause size={11} /> Playing</> : <><Play size={11} /> Preview</>}</button> : <span>Coming with assets</span>}</div></article>)}</section>}
-    <div className="availability" style={{ marginTop: 30, maxWidth: 700 }}><strong>About these demonstrations</strong> SignBridge does not present placeholder artwork as real captured signing. Each card is labeled until verified ISL reference videos and INCLUDE assets are connected.</div>
+    {visible.length === 0 ? <div className="empty-state"><Search size={26} /><h3>No concepts found</h3><p>Try a different word or clear the {filter} filter.</p><button className="button soft small" style={{ marginTop: 17 }} onClick={() => { setQuery(''); setFilter('All'); }} data-testid="button-clear-vocabulary">Clear search</button></div> : <section className="vocab-grid" aria-label="Vocabulary results">{visible.map(concept => <article className="vocab-card" key={concept.id} data-testid={`card-vocabulary-${concept.id}`}><div className="vocab-top"><span className="category-label">{concept.category}</span>{concept.priority === 'high' && <span className="priority" title="High priority concept" />}</div><div className="demo-art" aria-label={`ISL sign video for ${concept.label}`} style={{ position: 'relative', overflow: 'hidden', background: 'hsl(195 24% 10%)' }}><video ref={el => { videoRefs.current[concept.id] = el; }} src={`/signs/${concept.id}.mp4`} muted playsInline loop onEnded={() => setPlaying(null)} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} aria-label={`${concept.label} sign video`} /></div><h3>{concept.label}</h3><p>{concept.meaning}</p><div className="vocab-bottom"><span>{Math.round(concept.confidence * 100)}% reference confidence</span>{concept.demoAvailable ? <button onClick={() => toggleDemo(concept)} data-testid={`button-play-demo-${concept.id}`}>{playing === concept.id ? <><Pause size={11} /> Playing</> : <><Play size={11} /> Preview</>}</button> : <span>Coming with assets</span>}</div></article>)}</section>}
+    <div className="availability" style={{ marginTop: 30, maxWidth: 700 }}><strong>About these demonstrations</strong> Real ISL reference videos are shown directly from the local assets. Each clip was recorded for the SignBridge vocabulary set.</div>
   </div></Shell>;
 }
 

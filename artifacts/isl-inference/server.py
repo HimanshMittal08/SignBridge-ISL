@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import List, Dict
 
+import numpy as np
 import torch
 import torch.nn as nn
 from fastapi import FastAPI, HTTPException
@@ -91,6 +92,10 @@ def load_model():
     print(f"Successfully loaded GRU model from {model_path} with {num_classes} classes: {list(LABEL_MAP.keys())}")
 
 
+# Automatically initialize model on import
+load_model()
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     load_model()
@@ -123,6 +128,20 @@ def health():
     }
 
 
+def normalize_sequence(landmarks_seq: list[list[float]]) -> np.ndarray:
+    lms = np.array(landmarks_seq, dtype=np.float32).reshape(36, 2, 21, 3)
+    for f in range(36):
+        for h in range(2):
+            hand = lms[f, h]
+            if np.abs(hand).sum() > 0:
+                wrist = hand[0].copy()
+                hand = hand - wrist
+                dists = np.linalg.norm(hand[:, :2], axis=1)
+                scale = max(float(dists.max()), 1e-6)
+                lms[f, h] = hand / scale
+    return lms.reshape(36, 126)
+
+
 @app.post("/predict", response_model=PredictResponse)
 def predict(payload: PredictRequest):
     if MODEL is None:
@@ -143,7 +162,8 @@ def predict(payload: PredictRequest):
             )
 
     try:
-        x_tensor = torch.tensor(seq, dtype=torch.float32).unsqueeze(0)  # Shape: (1, 36, 126)
+        norm_seq = normalize_sequence(seq)
+        x_tensor = torch.tensor(norm_seq, dtype=torch.float32).unsqueeze(0)  # Shape: (1, 36, 126)
         with torch.no_grad():
             logits = MODEL(x_tensor)
             probs = torch.softmax(logits, dim=-1).squeeze(0)

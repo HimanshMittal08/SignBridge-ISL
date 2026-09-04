@@ -255,7 +255,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .vocab-top { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
 .category-label { color: hsl(var(--accent)); font-family: var(--app-font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .priority { width: 7px; height: 7px; border-radius: 50%; background: hsl(var(--secondary)); margin-top: 3px; }
-.demo-art { height: 100px; margin: 17px 0; border-radius: 10px; background: hsl(195 29% 23%); display: grid; place-items: center; position: relative; overflow: hidden; }
+.demo-art { height: 180px; margin: 17px 0; border-radius: 10px; background: hsl(195 29% 23%); display: grid; place-items: center; position: relative; overflow: hidden; }
 .demo-art:before { content: ''; position: absolute; width: 155px; height: 155px; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; }
 .demo-art span { color: hsl(var(--secondary)); font-family: var(--app-font-serif); font-size: 40px; position: relative; }
 .demo-art small { position: absolute; bottom: 8px; left: 10px; color: hsl(195 12% 73%); font-family: var(--app-font-mono); font-size: 8px; }

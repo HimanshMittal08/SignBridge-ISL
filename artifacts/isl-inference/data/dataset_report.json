@@ -1,0 +1,33 @@
+{
+  "total_target_concepts": 70,
+  "available_concepts_count": 8,
+  "missing_concepts_count": 62,
+  "total_videos_discovered": 56,
+  "total_usable_videos": 56,
+  "videos_rejected": 0,
+  "mediapipe_failures": 0,
+  "classes_with_insufficient_samples": [
+    "EAT", "GO", "HELLO", "HELP", "NO", "PLEASE", "WATER", "YES"
+  ],
+  "signer_counts": {
+    "USER001": 8,
+    "USER002": 7,
+    "USER003": 7,
+    "USER004": 7,
+    "USER005": 7,
+    "USER006": 7,
+    "INCLUDE_MVI": 6,
+    "CISLR_ACTION_PROCESS": 7
+  },
+  "class_imbalance": {
+    "EAT": 7,
+    "GO": 7,
+    "HELLO": 7,
+    "HELP": 7,
+    "NO": 7,
+    "PLEASE": 7,
+    "WATER": 7,
+    "YES": 7
+  },
+  "summary_note": "Dataset contains 56 total usable clips across 8 available classes (~7 clips per class). All 8 available classes fall below the production-readiness threshold (minimum 80 clips/label). The remaining 62 target concepts are missing from the raw dataset subset."
+}

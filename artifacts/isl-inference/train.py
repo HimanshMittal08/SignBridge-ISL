@@ -190,9 +190,9 @@ def main():
     res = train_held_out(records, label_to_idx, args.test_signer, epochs=args.epochs)
 
     # Save model weights & label map
-    model_path = output_dir / "gru_model.pt"
-    label_map_path = output_dir / "label_map.json"
-    report_path = output_dir / "train_report.json"
+    model_path = output_dir / "gru_model_8class.pt"
+    label_map_path = output_dir / "label_map_8class.json"
+    report_path = output_dir / "train_report_8class.json"
 
     torch.save(res["model_state"], model_path)
     label_map_path.write_text(json.dumps(label_to_idx, indent=2), encoding="utf-8")

@@ -1,89 +1,292 @@
 {
-  "held_out_test_signer": "USER001",
-  "train_sample_count": 48,
-  "test_sample_count": 8,
-  "test_accuracy": 0.75,
-  "test_loss": 1.3909,
-  "per_class_results": {
-    "EAT": {
-      "total_samples": 1,
-      "correct_predictions": 1,
-      "accuracy": 1.0
+  "num_classes": 40,
+  "total_clips": 624,
+  "train_clips": 434,
+  "val_clips": 97,
+  "test_clips": 93,
+  "train_augmented_samples": 2604,
+  "best_val_accuracy": 0.8144,
+  "best_val_loss": 0.8559,
+  "test_accuracy": 0.7634,
+  "test_loss": 1.4374,
+  "macro_f1": 0.6071,
+  "weighted_f1": 0.76,
+  "worst_performing_classes": [
+    {
+      "class": "GOOD_AFTERNOON",
+      "f1_score": 0.0
     },
-    "GO": {
-      "total_samples": 1,
-      "correct_predictions": 1,
-      "accuracy": 1.0
+    {
+      "class": "PLEASE",
+      "f1_score": 0.0
     },
+    {
+      "class": "YES",
+      "f1_score": 0.0
+    },
+    {
+      "class": "NO",
+      "f1_score": 0.0
+    },
+    {
+      "class": "OKAY",
+      "f1_score": 0.0
+    }
+  ],
+  "classification_report": {
     "HELLO": {
-      "total_samples": 1,
-      "correct_predictions": 0,
-      "accuracy": 0.0
+      "precision": 0.875,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.8235294117647058,
+      "support": 9.0
     },
-    "HELP": {
-      "total_samples": 1,
-      "correct_predictions": 1,
-      "accuracy": 1.0
+    "HOW_ARE_YOU": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 3.0
     },
-    "NO": {
-      "total_samples": 1,
-      "correct_predictions": 0,
-      "accuracy": 0.0
+    "GOOD_MORNING": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 1.0
+    },
+    "GOOD_AFTERNOON": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "GOOD_EVENING": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1-score": 0.6666666666666666,
+      "support": 2.0
+    },
+    "GOOD_NIGHT": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "THANK_YOU": {
+      "precision": 0.8571428571428571,
+      "recall": 1.0,
+      "f1-score": 0.9230769230769231,
+      "support": 6.0
     },
     "PLEASE": {
-      "total_samples": 1,
-      "correct_predictions": 1,
-      "accuracy": 1.0
-    },
-    "WATER": {
-      "total_samples": 1,
-      "correct_predictions": 1,
-      "accuracy": 1.0
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
     },
     "YES": {
-      "total_samples": 1,
-      "correct_predictions": 1,
-      "accuracy": 1.0
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "NO": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "OKAY": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "HELP": {
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1-score": 0.8,
+      "support": 4.0
+    },
+    "I": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2.0
+    },
+    "YOU": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2.0
+    },
+    "HE": {
+      "precision": 1.0,
+      "recall": 0.6,
+      "f1-score": 0.75,
+      "support": 5.0
+    },
+    "SHE": {
+      "precision": 0.7142857142857143,
+      "recall": 1.0,
+      "f1-score": 0.8333333333333334,
+      "support": 5.0
+    },
+    "WE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "BOY": {
+      "precision": 1.0,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.5,
+      "support": 3.0
+    },
+    "GIRL": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 1.0
+    },
+    "FRIEND": {
+      "precision": 1.0,
+      "recall": 0.25,
+      "f1-score": 0.4,
+      "support": 4.0
+    },
+    "FAMILY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "FATHER": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1-score": 0.8571428571428571,
+      "support": 4.0
+    },
+    "MOTHER": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "BROTHER": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 3.0
+    },
+    "SISTER": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "EAT": {
+      "precision": 0.8333333333333334,
+      "recall": 0.8333333333333334,
+      "f1-score": 0.8333333333333334,
+      "support": 6.0
+    },
+    "DRINK": {
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.5714285714285714,
+      "support": 3.0
+    },
+    "FOOD": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 1.0
+    },
+    "WATER": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "TEA": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "HOUSE": {
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1-score": 0.8571428571428571,
+      "support": 3.0
+    },
+    "SCHOOL": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "STUDENT": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2.0
+    },
+    "TEACHER": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 1.0
+    },
+    "DOCTOR": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "HOSPITAL": {
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.8,
+      "support": 6.0
+    },
+    "WHERE": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "WHAT": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "TODAY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1.0
+    },
+    "GO": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 4.0
+    },
+    "accuracy": 0.7634408602150538,
+    "macro avg": {
+      "precision": 0.6299107142857142,
+      "recall": 0.6344444444444445,
+      "f1-score": 0.6070580155138978,
+      "support": 93.0
+    },
+    "weighted avg": {
+      "precision": 0.8172683051715309,
+      "recall": 0.7634408602150538,
+      "f1-score": 0.7600126733902824,
+      "support": 93.0
     }
   },
-  "leave_one_signer_out_cv": {
-    "signers": {
-      "USER001": {
-        "train_samples": 48,
-        "test_samples": 8,
-        "test_accuracy": 0.75
-      },
-      "USER002": {
-        "train_samples": 49,
-        "test_samples": 7,
-        "test_accuracy": 0.7143
-      },
-      "USER003": {
-        "train_samples": 49,
-        "test_samples": 7,
-        "test_accuracy": 0.8571
-      },
-      "USER004": {
-        "train_samples": 49,
-        "test_samples": 7,
-        "test_accuracy": 0.8571
-      },
-      "USER005": {
-        "train_samples": 49,
-        "test_samples": 7,
-        "test_accuracy": 1.0
-      },
-      "USER006": {
-        "train_samples": 49,
-        "test_samples": 7,
-        "test_accuracy": 0.7143
-      }
-    },
-    "mean_loso_accuracy": 0.8155
-  },
-  "suitability_assessment": {
-    "is_production_ready": false,
-    "is_dataset_sufficient_for_generalization": false,
-    "reason": "Dataset contains only 56 total clips across 8 classes (~7 clips per class). While technical pipeline execution (feature format, tensor shapes, GRU model weights) is 100% verified, 56 total samples is far below the required baseline threshold (minimum 80 clips per label per signer, target 1,920 clips) for a production-grade or generalizable model."
-  }
+  "confusion_matrix_file": "C:/Users/neetu/Documents/Codex/2026-08-29/continue-working-on-the-existing-signbridge/artifacts/isl-inference/models/confusion_matrix.json"
 }
