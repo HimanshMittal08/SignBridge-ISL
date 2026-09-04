@@ -331,6 +331,10 @@ function ConversationPage() {
   const noHandFrameCountRef = useRef<number>(0);
   const hadNeutralStateRef = useRef<boolean>(true);
 
+  const activeSentenceTokensRef = useRef<string[]>([]);
+  const lastAcceptedTokenRef = useRef<string | null>(null);
+  const [recognizingSessionTokens, setRecognizingSessionTokens] = useState<string[]>([]);
+
   const scrollToBottom = (smooth = true) => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({
@@ -399,6 +403,10 @@ function ConversationPage() {
     setCameraStatus('disabled');
     sequenceBufferRef.current = [];
     historyRef.current = [];
+    activeSentenceTokensRef.current = [];
+    lastAcceptedTokenRef.current = null;
+    lastCommittedRef.current = null;
+    setRecognizingSessionTokens([]);
     setLivePrediction(null);
     setInferenceHint('Camera off');
     hadNeutralStateRef.current = true;
@@ -543,7 +551,49 @@ function ConversationPage() {
             sequenceBufferRef.current = [];
             historyRef.current = [];
             setLivePrediction(null);
-            setInferenceHint('No hand detected — waiting for sign');
+
+            // Check if active sentence session should finalize when hands are absent for >= 6 consecutive frames (~200ms)
+            if (noHandFrameCountRef.current >= 6 && activeSentenceTokensRef.current.length > 0) {
+              const tokens = [...activeSentenceTokensRef.current];
+              console.log(`[SignBridge ML] FINALIZE: ${tokens.join(' ')}`);
+
+              const exactTranscript = tokens.join('. ') + '.';
+              const rawSigns = [...tokens];
+              const concepts = [...tokens];
+              const sentenceText = tokens.join(' ');
+              const interpretation = sentenceText;
+
+              isUserNearBottomRef.current = true;
+              setMessages(prev => [...prev, {
+                id: Date.now(),
+                direction: 'signer',
+                exactTranscript,
+                rawSigns,
+                concepts,
+                interpretation,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+                status: 'Recognized (Live ML)',
+              }]);
+
+              // Trigger TTS for finalized sentence
+              if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(interpretation);
+                window.speechSynthesis.speak(utterance);
+              }
+
+              // Reset sentence session cleanly
+              activeSentenceTokensRef.current = [];
+              lastAcceptedTokenRef.current = null;
+              lastCommittedRef.current = null;
+              setRecognizingSessionTokens([]);
+            }
+
+            if (activeSentenceTokensRef.current.length > 0) {
+              setInferenceHint(`Hands left frame — finishing sentence: ${activeSentenceTokensRef.current.join(' → ')}`);
+            } else {
+              setInferenceHint('No hand detected — waiting for sign');
+            }
           } else {
             noHandFrameCountRef.current = 0;
             const frameFeat = extractFrameFeatures(detectedHands);
@@ -551,7 +601,11 @@ function ConversationPage() {
             if (sequenceBufferRef.current.length > 36) sequenceBufferRef.current.shift();
 
             if (sequenceBufferRef.current.length < 36) {
-              setInferenceHint(`Buffering sign movement (${sequenceBufferRef.current.length}/36 frames)`);
+              if (activeSentenceTokensRef.current.length > 0) {
+                setInferenceHint(`Recognizing: ${activeSentenceTokensRef.current.join(' → ')} (Buffering next sign ${sequenceBufferRef.current.length}/36)`);
+              } else {
+                setInferenceHint(`Buffering sign movement (${sequenceBufferRef.current.length}/36 frames)`);
+              }
             }
           }
 
@@ -585,100 +639,30 @@ function ConversationPage() {
                 );
 
                 if (data.confidence >= 0.55 && strongMatches.length >= 4) {
-                  setInferenceHint(`Strong sign candidate: ${data.label} (${Math.round(data.confidence * 100)}%)`);
+                  const lastToken = lastAcceptedTokenRef.current;
+                  const isNewToken = lastToken !== data.label;
 
-                  const nowMs = Date.now();
-                  const lastComm = lastCommittedRef.current;
-                  const isSameLabel = lastComm && lastComm.label === data.label;
-                  const cooldownPassed = !isSameLabel || (nowMs - lastComm.timestamp > 2000);
+                  if (isNewToken) {
+                    console.log(`[SignBridge ML] TOKEN: ${data.label}`);
+                    activeSentenceTokensRef.current.push(data.label);
+                    lastAcceptedTokenRef.current = data.label;
+                    lastCommittedRef.current = { label: data.label, timestamp: Date.now() };
 
-                  // Allow new distinct labels to commit without requiring hands to leave frame.
-                  // Duplicate same-label commits require 2000ms cooldown.
-                  if (cooldownPassed) {
-                    console.log(`[SignBridge ML] COMMIT: ${data.label} (confidence: ${Math.round(data.confidence * 100)}%). Clearing buffer & history.`);
-                    lastCommittedRef.current = { label: data.label, timestamp: nowMs };
-                    isUserNearBottomRef.current = true;
-
-                    // Complete buffer wipe & history reset for fresh continuous sign accumulation
-                    historyRef.current = [];
+                    // Reset sequence buffer & smoothing history so next gesture can be detected cleanly without requiring hands to leave frame
                     sequenceBufferRef.current = [];
+                    historyRef.current = [];
 
-                    const conceptMeaning: Record<string, string> = {
-                      BANK: 'A financial institution or banking service.',
-                      BOY: 'A male child or young man.',
-                      BROTHER: 'A male sibling.',
-                      BUS: 'A large public road vehicle.',
-                      CAR: 'An automobile or personal road vehicle.',
-                      CITY: 'A large human settlement or town.',
-                      COLD: 'Low temperature or feeling chilly.',
-                      DOCTOR: 'A medical professional or physician.',
-                      DRINK: 'To swallow liquid or beverage.',
-                      EAT: 'Food, a meal, or something to eat.',
-                      FAMILY: 'A group of related individuals.',
-                      FATHER: 'A male parent.',
-                      FOOD: 'Nourishment or edible items.',
-                      FRIEND: 'A person with whom one has a bond of mutual affection.',
-                      GIRL: 'A female child or young woman.',
-                      GO: 'Movement toward another place or destination.',
-                      GOOD_AFTERNOON: 'An afternoon greeting.',
-                      GOOD_EVENING: 'An evening greeting.',
-                      GOOD_MORNING: 'A morning greeting.',
-                      GOOD_NIGHT: 'A nighttime farewell.',
-                      HAPPY: 'Feeling or showing pleasure or contentment.',
-                      HE: 'Referring to a male person.',
-                      HELLO: 'A greeting or an opening to a conversation.',
-                      HELP: 'A request for assistance or support.',
-                      HOSPITAL: 'A medical care facility.',
-                      HOUSE: 'A residential building or home.',
-                      HOW_ARE_YOU: 'Inquiring about someone\'s well-being.',
-                      I: 'First-person singular pronoun.',
-                      INDIA: 'The country India.',
-                      LIBRARY: 'A building containing books and resources.',
-                      LOCATION: 'A particular place or position.',
-                      MARKET: 'A place for buying and selling goods.',
-                      MOTHER: 'A female parent.',
-                      NO: 'Disagreement, refusal, or a negative answer.',
-                      OFFICE: 'A room or building used for business work.',
-                      OKAY: 'Expressing approval or agreement.',
-                      PARK: 'A public green area for recreation.',
-                      PLEASE: 'A polite request or softening of a message.',
-                      POLICE: 'Law enforcement officer or force.',
-                      RESTAURANT: 'A business where meals are served.',
-                      SCHOOL: 'An educational institution.',
-                      SHE: 'Referring to a female person.',
-                      SICK: 'Feeling ill or unwell.',
-                      SISTER: 'A female sibling.',
-                      SIT: 'To rest one\'s body on a seat.',
-                      STORE_OR_SHOP: 'A retail establishment or shop.',
-                      STUDENT: 'A learner or person attending school.',
-                      TEA: 'A hot aromatic beverage.',
-                      TEACHER: 'An educator or instructor.',
-                      THANK_YOU: 'An expression of gratitude.',
-                      TIME: 'Clock time or temporal measurement.',
-                      TODAY: 'On or during the present day.',
-                      TRAIN: 'A railway vehicle or transport.',
-                      TRAIN_STATION: 'A railway station terminal.',
-                      WATER: 'Water, or a request for something to drink.',
-                      WE: 'First-person plural pronoun.',
-                      WHAT: 'Question token inquiring about a thing.',
-                      WHERE: 'Question token inquiring about a location.',
-                      YES: 'Agreement, confirmation, or an affirmative answer.',
-                      YOU: 'Second-person pronoun.'
-                    };
-
-                    setMessages(prev => [...prev, {
-                      id: Date.now(),
-                      direction: 'signer',
-                      exactTranscript: data.label,
-                      rawSigns: [data.label],
-                      concepts: [data.label],
-                      interpretation: conceptMeaning[data.label] || data.label,
-                      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-                      status: 'Recognized (Live ML)'
-                    }]);
+                    setRecognizingSessionTokens([...activeSentenceTokensRef.current]);
+                    setInferenceHint(`Recognizing: ${activeSentenceTokensRef.current.join(' → ')}`);
+                  } else {
+                    setInferenceHint(`Recognizing: ${activeSentenceTokensRef.current.join(' → ')} (Holding ${data.label})`);
                   }
                 } else {
-                  setInferenceHint('Waiting for clear sign');
+                  if (activeSentenceTokensRef.current.length > 0) {
+                    setInferenceHint(`Recognizing: ${activeSentenceTokensRef.current.join(' → ')}`);
+                  } else {
+                    setInferenceHint('Waiting for clear sign');
+                  }
                 }
               })
               .catch(() => {
@@ -762,7 +746,7 @@ function ConversationPage() {
         <section className="panel side-panel"><div className="eyebrow">Input status</div><h3>Connection controls</h3>
           <div className="device-row"><div className="device-info"><Camera size={16} className="device-icon" /><span>Camera for ISL</span></div><button className={`toggle ${camera ? 'on' : ''}`} onClick={camera ? stopCamera : enableCamera} disabled={mode === 'demo'} aria-label={`${camera ? 'Disable' : 'Enable'} camera`} aria-pressed={camera} data-testid="toggle-camera"><i /></button></div>
           <div className="device-row"><div className="device-info"><Mic size={16} className="device-icon" /><span>Microphone</span></div><button className={`toggle ${microphone ? 'on' : ''}`} onClick={() => setMicrophone(!microphone)} aria-label={`${microphone ? 'Disable' : 'Enable'} microphone`} aria-pressed={microphone} data-testid="toggle-microphone"><i /></button></div>
-          {mode === 'live' && cameraStatus === 'streaming' && <div style={{ position: 'relative', marginTop: 14 }}><video ref={videoRef} autoPlay playsInline muted aria-label="Live camera preview" data-testid="video-camera-preview" style={{ width: '100%', display: 'block', borderRadius: 10, background: 'hsl(195 24% 14%)' }} /><canvas ref={overlayRef} aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} /></div>}
+          {mode === 'live' && cameraStatus === 'streaming' && <div style={{ position: 'relative', marginTop: 14 }}><video ref={videoRef} autoPlay playsInline muted aria-label="Live camera preview" data-testid="video-camera-preview" style={{ width: '100%', display: 'block', borderRadius: 10, background: 'hsl(195 24% 14%)' }} /><canvas ref={overlayRef} aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />{recognizingSessionTokens.length > 0 && <div style={{ position: 'absolute', bottom: 8, left: 8, right: 8, padding: '6px 10px', background: 'rgba(0, 0, 0, 0.75)', color: '#56e0d1', borderRadius: 6, fontSize: 12, fontWeight: 600, backdropFilter: 'blur(4px)' }} data-testid="live-recognizing-preview">Recognizing: {recognizingSessionTokens.join(' → ')}</div>}</div>}
           <div className="availability"><strong>{mode === 'demo' ? 'DEMO MODE is on' : 'LIVE CAMERA'}</strong>{mode === 'demo' ? 'No camera or microphone data is being captured. Turn on Live devices when you are ready.' : cameraStatus === 'disabled' ? 'Camera is off. Enable it to request access.' : cameraStatus === 'requesting' ? 'Requesting camera permission…' : cameraStatus === 'streaming' ? `Camera stream is active. Hand landmarker: ${modelStatus === 'ready' ? handDetected ? `hand detected (${hands.length}/2)` : 'hand not detected' : modelStatus === 'loading' ? 'loading…' : modelStatus === 'error' ? 'error' : 'waiting'}. Inference backend: ${backendStatus === 'connected' ? `Connected (${inferenceHint})` : 'Inference offline (FastAPI backend unavailable at http://localhost:8000)'}.` : cameraStatus === 'unsupported' ? 'This browser does not support camera access.' : cameraStatus === 'denied' ? 'Camera permission was denied. Allow camera access in your browser settings and try again.' : cameraStatus === 'no-device' ? 'No camera device was found.' : cameraStatus === 'unavailable' ? 'The camera is unavailable or already in use by another application.' : 'Unable to start the camera. Please try again.'}</div>
         </section>
         <section className="panel side-panel"><div className="eyebrow">Try a scene</div><h3>Demo scenarios</h3><div className="scenario-row">{['Everyday hello', 'Need assistance', 'Clarify a phrase'].map(item => <button className="scenario-button" key={item} onClick={() => runScenario(item)} data-testid={`button-scenario-${item.toLowerCase().replaceAll(' ', '-')}`}><strong>{item}</strong><span>{item === 'Need assistance' ? 'An urgent request with visible context.' : item === 'Clarify a phrase' ? 'Compare two possible meanings.' : 'A simple opening exchange.'}</span></button>)}</div><div className="availability"><strong>Now showing: {scenario}</strong>{messages[messages.length - 1]?.status || 'No messages yet'} · {messages.length} messages</div></section>
