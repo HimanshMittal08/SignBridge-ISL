@@ -1,10 +1,10 @@
-# SignBridge (ISL) ????
+# SignBridge (ISL)
 
 **SignBridge** is a real-time, two-way Indian Sign Language (ISL) communication bridge designed to enable seamless bidirectional interaction between Deaf / Hard-of-Hearing individuals and non-signers.
 
 ---
 
-## ?? Overview
+# Overview
 
 SignBridge addresses the communication gap by providing real-time, two-way translation:
 1. **Sign to Text / Speech (Direction 1)**: Captures hand gestures live via camera feed, processes frame sequence landmarks, and predicts the corresponding ISL sign concept using a deep learning classifier.
@@ -14,7 +14,7 @@ This repository contains an **MVP research prototype** operating on a curated 40
 
 ---
 
-## ? Key Features
+# Key Features
 
 - **Real-Time Hand Landmark Tracking**: Uses MediaPipe Tasks Vision directly in the browser to extract 21 3D hand keypoints per hand across two hands (126 coordinates per frame).
 - **Temporal Deep Learning Inference**: 36-frame temporal sequence modeling powered by a PyTorch GRU architecture (HandsGRU).
@@ -27,31 +27,31 @@ This repository contains an **MVP research prototype** operating on a curated 40
 
 ---
 
-## ?? System Architecture
+## System Architecture
 
 `
                                   DIRECTION 1: SIGN TO TEXT/SPEECH
 +----------------------+    +---------------------------------+    +--------------------------------+
-¦   Webcam Feed        ¦ -? ¦ MediaPipe Hand Landmarker       ¦ -? ¦ 36-Frame Landmark Sequence     ¦
-¦  (User Gesturing)    ¦    ¦ (Browser - 126 coordinates/frame¦    ¦ (Shape: 36 x 126 array)        ¦
+Â¦   Webcam Feed        Â¦ -  Â¦ MediaPipe Hand Landmarker       Â¦ -  Â¦ 36-Frame Landmark Sequence     Â¦
+Â¦  (User Gesturing)    Â¦    Â¦ (Browser - 126 coordinates/frameÂ¦    Â¦ (Shape: 36 x 126 array)        Â¦
 +----------------------+    +---------------------------------+    +--------------------------------+
-                                                                                   ¦ POST /predict
-                                                                                   ?
+                                                                                   Â¦ POST /predict
+                                                                                   |
 +----------------------+    +---------------------------------+    +--------------------------------+
-¦ UI Display & Speech  ¦ ?- ¦ Concept & Confidence Score      ¦ ?- ¦ FastAPI Backend + PyTorch GRU  ¦
-¦ (Web Speech Synthesis¦    ¦ (e.g. " THANK_YOU\, 94.2% conf) ¦ ¦ (40-Class HandsGRU Model) ¦
+Â¦ UI Display & Speech  Â¦  - Â¦ Concept & Confidence Score      Â¦  - Â¦ FastAPI Backend + PyTorch GRU  Â¦
+Â¦ (Web Speech SynthesisÂ¦    Â¦ (e.g. " THANK_YOU\, 94.2% conf) Â¦ Â¦ (40-Class HandsGRU Model) Â¦
 +----------------------+ +---------------------------------+ +--------------------------------+
 
  DIRECTION 2: SPEECH/TEXT TO SIGN
 +----------------------+ +---------------------------------+ +--------------------------------+
-¦ Voice / Text Input ¦ -? ¦ Concept Extraction Engine ¦ -? ¦ ISL Video Player Component ¦
-¦ (Web Speech Recog.) ¦ ¦ (Matches vocabulary concepts) ¦ ¦ (H.264 ISL Sign Video Assets) ¦
+Â¦ Voice / Text Input Â¦ -  Â¦ Concept Extraction Engine Â¦ -  Â¦ ISL Video Player Component Â¦
+Â¦ (Web Speech Recog.) Â¦ Â¦ (Matches vocabulary concepts) Â¦ Â¦ (H.264 ISL Sign Video Assets) Â¦
 +----------------------+ +---------------------------------+ +--------------------------------+
 `
 
 ---
 
-## ?? Tech Stack
+##  Tech Stack
 
 - **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Wouter, Framer Motion
 - **Vision Tracking**: @mediapipe/tasks-vision (HandLandmarker)
@@ -62,7 +62,7 @@ This repository contains an **MVP research prototype** operating on a curated 40
 
 ---
 
-## ?? Supported ISL Vocabulary (40 Concepts)
+##  Supported ISL Vocabulary (40 Concepts)
 
 The active MVP model supports classification and playback across **40 ISL concepts**:
 
@@ -76,7 +76,7 @@ The active MVP model supports classification and playback across **40 ISL concep
 
 ---
 
-## ?? Model & Evaluation
+## Model & Evaluation
 
 ### Architecture
 - **Model Type**: HandsGRU (2-layer Recurrent Neural Network with Dropout)
@@ -96,7 +96,7 @@ The active MVP model supports classification and playback across **40 ISL concep
 
 ---
 
-## ?? Project Structure
+## Project Structure
 
 `
 SignBridge-ISL/
@@ -104,17 +104,17 @@ SignBridge-ISL/
 +-- package.json # Monorepo Workspace Configuration
 +-- pnpm-workspace.yaml # pnpm Workspace Packages setup
 +-- models/ # Deployment Model Assets
-¦ +-- gru_model.pt # Trained 40-Class PyTorch GRU Checkpoint
-¦ +-- label_map.json # Label-to-Index Mapping Dictionary
+Â¦ +-- gru_model.pt # Trained 40-Class PyTorch GRU Checkpoint
+Â¦ +-- label_map.json # Label-to-Index Mapping Dictionary
 +-- artifacts/
-¦ +-- signbridge/ # React + TypeScript Frontend Application
-¦ ¦ +-- package.json
-¦ ¦ +-- vite.config.ts
-¦ ¦ +-- src/ # React UI Components & Hand Tracking Logic
-¦ ¦ +-- public/signs/ # Browser-compatible H.264 ISL Sign Videos
-¦ +-- isl-inference/ # FastAPI + PyTorch Backend Inference Server
-¦ +-- server.py # FastAPI Live Server (/health, /predict)
-¦ +-- models/ # Local Backend Model Directory
+Â¦ +-- signbridge/ # React + TypeScript Frontend Application
+Â¦ Â¦ +-- package.json
+Â¦ Â¦ +-- vite.config.ts
+Â¦ Â¦ +-- src/ # React UI Components & Hand Tracking Logic
+Â¦ Â¦ +-- public/signs/ # Browser-compatible H.264 ISL Sign Videos
+Â¦ +-- isl-inference/ # FastAPI + PyTorch Backend Inference Server
+Â¦ +-- server.py # FastAPI Live Server (/health, /predict)
+Â¦ +-- models/ # Local Backend Model Directory
 +-- scripts/ # Workspace Utility Scripts
 `
 
@@ -177,7 +177,7 @@ pnpm run dev
 
 ## ? How It Works
 
-1. **Feature Extraction**: Browser captures webcam video. MediaPipe Vision detects left and right hand keypoints (21 joints × 3D coordinates × 2 hands = 126 values per frame).
+1. **Feature Extraction**: Browser captures webcam video. MediaPipe Vision detects left and right hand keypoints (21 joints Ã— 3D coordinates Ã— 2 hands = 126 values per frame).
 2. **Wrist Normalization**: Coordinates are normalized relative to the wrist position and scaled by hand span size to ensure invariance to distance and position.
 3. **Temporal Buffer**: A sliding window collects 36 consecutive frames of landmarks (~1.2 seconds of gesturing).
 4. **PyTorch Inference**: The sequence is submitted to POST /predict. The HandsGRU model computes probability scores over the 40 classes.
@@ -185,7 +185,7 @@ pnpm run dev
 
 ---
 
-## ?? Limitations
+##  Limitations
 
 - **Vocabulary Size**: Currently restricted to 40 primary ISL concepts.
 - **Hands-Only Tracking**: Relies exclusively on hand landmarks; facial expressions and torso gestures are not currently modeled.
@@ -193,7 +193,7 @@ pnpm run dev
 
 ---
 
-## ?? Future Improvements
+##  Future Improvements
 
 - **Holistic Tracking**: Integrate MediaPipe Holistic (Pose + Face + Hands) to capture subtle non-manual signals.
 - **Continuous Sign Translation**: Expand from isolated concept classification to continuous ISL sentence translation.
@@ -202,6 +202,6 @@ pnpm run dev
 
 ---
 
-## ?? Project Status
+##  Project Status
 
 This repository is maintained as an open MVP research prototype for Indian Sign Language accessibility technology.
