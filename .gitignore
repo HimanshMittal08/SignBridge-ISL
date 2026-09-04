@@ -51,3 +51,11 @@ Thumbs.db
 /work/
 /*.log
 
+
+# Local ISL training data
+artifacts/isl-inference/data/raw_60/
+artifacts/isl-inference/data/processed_60/
+
+# Local debug scripts
+artifacts/isl-inference/scratch/check_*.py
+artifacts/isl-inference/scratch/debug_sys.py

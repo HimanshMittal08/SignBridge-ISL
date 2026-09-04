@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ArrowRight, AudioLines, Bell, BookOpen, Camera, ChevronRight, CircleHelp, Ear, Hand, Languages, Mic, Pause, Play, Search, Send, Settings2, Sparkles, Terminal, Volume2, X } from 'lucide-react';
@@ -44,13 +44,8 @@ const HAND_LANDMARKER_MODEL = 'https://storage.googleapis.com/mediapipe-models/h
 const queryClient = new QueryClient();
 
 const concepts: SignConcept[] = [
-  { id: 'bank', label: 'BANK', meaning: 'A financial institution or banking service.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'boy', label: 'BOY', meaning: 'A male child or young man.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'brother', label: 'BROTHER', meaning: 'A male sibling.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'bus', label: 'BUS', meaning: 'A large public road vehicle.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'car', label: 'CAR', meaning: 'An automobile or personal road vehicle.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'city', label: 'CITY', meaning: 'A large human settlement or town.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'cold', label: 'COLD', meaning: 'Low temperature or feeling chilly.', category: 'Feelings', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'doctor', label: 'DOCTOR', meaning: 'A medical professional or physician.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
   { id: 'drink', label: 'DRINK', meaning: 'To swallow liquid or beverage.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'eat', label: 'EAT', meaning: 'Food, a meal, or something to eat.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
@@ -64,7 +59,6 @@ const concepts: SignConcept[] = [
   { id: 'good_evening', label: 'GOOD_EVENING', meaning: 'An evening greeting.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'good_morning', label: 'GOOD_MORNING', meaning: 'A morning greeting.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'good_night', label: 'GOOD_NIGHT', meaning: 'A nighttime farewell.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'happy', label: 'HAPPY', meaning: 'Feeling or showing pleasure or contentment.', category: 'Feelings', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'he', label: 'HE', meaning: 'Referring to a male person.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'hello', label: 'HELLO', meaning: 'A greeting or an opening to a conversation.', category: 'Conversation', priority: 'normal', confidence: .98, demoAvailable: true },
   { id: 'help', label: 'HELP', meaning: 'A request for assistance or support.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
@@ -72,32 +66,18 @@ const concepts: SignConcept[] = [
   { id: 'house', label: 'HOUSE', meaning: 'A residential building or home.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'how_are_you', label: 'HOW_ARE_YOU', meaning: 'Inquiring about someone\'s well-being.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'i', label: 'I', meaning: 'First-person singular pronoun.', category: 'People', priority: 'normal', confidence: .97, demoAvailable: true },
-  { id: 'india', label: 'INDIA', meaning: 'The country India.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'library', label: 'LIBRARY', meaning: 'A building containing books and resources.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'location', label: 'LOCATION', meaning: 'A particular place or position.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'market', label: 'MARKET', meaning: 'A place for buying and selling goods.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'mother', label: 'MOTHER', meaning: 'A female parent.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'no', label: 'NO', meaning: 'Disagreement, refusal, or a negative answer.', category: 'Conversation', priority: 'normal', confidence: .99, demoAvailable: true },
-  { id: 'office', label: 'OFFICE', meaning: 'A room or building used for business work.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'okay', label: 'OKAY', meaning: 'Expressing approval or agreement.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'park', label: 'PARK', meaning: 'A public green area for recreation.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'please', label: 'PLEASE', meaning: 'A polite request or softening of a message.', category: 'Conversation', priority: 'normal', confidence: .92, demoAvailable: true },
-  { id: 'police', label: 'POLICE', meaning: 'Law enforcement officer or force.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
-  { id: 'restaurant', label: 'RESTAURANT', meaning: 'A business where meals are served.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'school', label: 'SCHOOL', meaning: 'An educational institution.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'she', label: 'SHE', meaning: 'Referring to a female person.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'sick', label: 'SICK', meaning: 'Feeling ill or unwell.', category: 'Emergency', priority: 'high', confidence: .95, demoAvailable: true },
   { id: 'sister', label: 'SISTER', meaning: 'A female sibling.', category: 'Family', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'sit', label: 'SIT', meaning: 'To rest one\'s body on a seat.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'store_or_shop', label: 'STORE_OR_SHOP', meaning: 'A retail establishment or shop.', category: 'Places', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'student', label: 'STUDENT', meaning: 'A learner or person attending school.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'tea', label: 'TEA', meaning: 'A hot aromatic beverage.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'teacher', label: 'TEACHER', meaning: 'An educator or instructor.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'thank_you', label: 'THANK_YOU', meaning: 'An expression of gratitude.', category: 'Conversation', priority: 'normal', confidence: .97, demoAvailable: true },
-  { id: 'time', label: 'TIME', meaning: 'Clock time or temporal measurement.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'today', label: 'TODAY', meaning: 'On or during the present day.', category: 'Everyday', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'train', label: 'TRAIN', meaning: 'A railway vehicle or transport.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
-  { id: 'train_station', label: 'TRAIN_STATION', meaning: 'A railway station terminal.', category: 'Transport', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'water', label: 'WATER', meaning: 'Water, or a request for something to drink.', category: 'Everyday', priority: 'normal', confidence: .94, demoAvailable: true },
   { id: 'we', label: 'WE', meaning: 'First-person plural pronoun.', category: 'People', priority: 'normal', confidence: .95, demoAvailable: true },
   { id: 'what', label: 'WHAT', meaning: 'Question token inquiring about a thing.', category: 'Conversation', priority: 'normal', confidence: .95, demoAvailable: true },
@@ -107,18 +87,14 @@ const concepts: SignConcept[] = [
 ];
 
 const conceptAliases: Record<string, string[]> = {
-  bank: ['bank'], boy: ['boy'], brother: ['brother'], bus: ['bus'], car: ['car'], city: ['city'], cold: ['cold'],
-  doctor: ['doctor'], drink: ['drink'], eat: ['eat'], family: ['family'], father: ['father'], food: ['food'],
-  friend: ['friend'], girl: ['girl'], go: ['go'], good_afternoon: ['good afternoon'], good_evening: ['good evening'],
-  good_morning: ['good morning'], good_night: ['good night'], happy: ['happy'], he: ['he'], hello: ['hello', 'hi', 'hey'],
-  help: ['help', 'assist', 'assistance'], hospital: ['hospital'], house: ['house', 'home'], how_are_you: ['how are you'],
-  i: ['i', 'me', 'my'], india: ['india'], library: ['library'], location: ['location', 'place'], market: ['market'],
-  mother: ['mother', 'mom'], no: ['no', 'not'], office: ['office', 'work'], okay: ['okay', 'ok'], park: ['park'],
-  please: ['please'], police: ['police', 'cop'], restaurant: ['restaurant'], school: ['school'], she: ['she', 'her'],
-  sick: ['sick', 'ill'], sister: ['sister'], sit: ['sit'], store_or_shop: ['store', 'shop'], student: ['student'],
-  tea: ['tea', 'chai'], teacher: ['teacher'], thank_you: ['thank you', 'thanks'], time: ['time'], today: ['today'],
-  train: ['train'], train_station: ['train station'], water: ['water', 'drink'], we: ['we', 'us'], what: ['what'],
-  where: ['where'], yes: ['yes', 'yeah'], you: ['you', 'your']
+  boy: ['boy'], brother: ['brother'], doctor: ['doctor'], drink: ['drink'], eat: ['eat'], family: ['family'],
+  father: ['father'], food: ['food'], friend: ['friend'], girl: ['girl'], go: ['go'], good_afternoon: ['good afternoon'],
+  good_evening: ['good evening'], good_morning: ['good morning'], good_night: ['good night'], he: ['he'],
+  hello: ['hello', 'hi', 'hey'], help: ['help', 'assist', 'assistance'], hospital: ['hospital'], house: ['house', 'home'],
+  how_are_you: ['how are you'], i: ['i', 'me', 'my'], mother: ['mother', 'mom'], no: ['no', 'not'], okay: ['okay', 'ok'],
+  please: ['please'], school: ['school'], she: ['she', 'her'], sister: ['sister'], student: ['student'], tea: ['tea', 'chai'],
+  teacher: ['teacher'], thank_you: ['thank you', 'thanks'], today: ['today'], water: ['water', 'drink'], we: ['we', 'us'],
+  what: ['what'], where: ['where'], yes: ['yes', 'yeah'], you: ['you', 'your']
 };
 
 function extractConcepts(text: string) {
@@ -303,6 +279,10 @@ function ConversationPage() {
   const [inferenceFps, setInferenceFps] = useState(0);
   const [inferenceLatency, setInferenceLatency] = useState(0);
   const [microphone, setMicrophone] = useState(false);
+  const [micStatus, setMicStatus] = useState<'disabled' | 'listening' | 'unsupported' | 'denied' | 'error'>('disabled');
+  const [interimTranscript, setInterimTranscript] = useState('');
+  const recognitionRef = useRef<any>(null);
+  const isMicActiveRef = useRef(false);
   const [debug, setDebug] = useState(false);
   const [draft, setDraft] = useState('');
   const [selectedConcepts, setSelectedConcepts] = useState<string[]>(['HELP']);
@@ -576,11 +556,7 @@ function ConversationPage() {
               }]);
 
               // Trigger TTS for finalized sentence
-              if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(interpretation);
-                window.speechSynthesis.speak(utterance);
-              }
+              speak(interpretation);
 
               // Reset sentence session cleanly
               activeSentenceTokensRef.current = [];
@@ -693,14 +669,26 @@ function ConversationPage() {
 
   const speak = (text: string) => {
     if (!('speechSynthesis' in window)) return;
+    isMicActiveRef.current = false;
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {}
+      recognitionRef.current = null;
+    }
+    setInterimTranscript('');
+    setMicStatus('disabled');
+    setMicrophone(false);
+
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.onstart = () => setSpeaking(true);
     utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
     window.speechSynthesis.speak(utterance);
   };
-  const sendText = () => {
-    const text = draft.trim();
+  const sendText = (overrideText?: string) => {
+    const text = (typeof overrideText === 'string' ? overrideText : draft).trim();
     if (!text) return;
     const extractedConcepts = extractConcepts(text);
     const emergency = extractedConcepts.includes('HELP') && (extractedConcepts.includes('DOCTOR') || extractedConcepts.includes('HOSPITAL'));
@@ -716,8 +704,123 @@ function ConversationPage() {
       emergency,
       textToIsl: true,
     }]);
-    setDraft('');
+    if (typeof overrideText !== 'string') {
+      setDraft('');
+    }
   };
+
+  const sendTextRef = useRef(sendText);
+  useEffect(() => {
+    sendTextRef.current = sendText;
+  });
+
+  const stopMicrophone = useCallback(() => {
+    isMicActiveRef.current = false;
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {
+        // ignore if already stopped
+      }
+      recognitionRef.current = null;
+    }
+    setInterimTranscript('');
+    setMicStatus('disabled');
+  }, []);
+
+  const startMicrophone = useCallback(() => {
+    const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognitionClass) {
+      setMicStatus('unsupported');
+      setMicrophone(false);
+      return;
+    }
+
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {}
+      recognitionRef.current = null;
+    }
+
+    try {
+      const recognition = new SpeechRecognitionClass();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      isMicActiveRef.current = true;
+
+      recognition.onstart = () => {
+        setMicStatus('listening');
+      };
+
+      recognition.onresult = (event: any) => {
+        let currentInterim = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const transcriptText = result[0]?.transcript || '';
+          if (result.isFinal) {
+            const finalClean = transcriptText.trim();
+            if (finalClean) {
+              sendTextRef.current(finalClean);
+              setInterimTranscript('');
+              setMicrophone(false);
+            }
+          } else {
+            currentInterim += transcriptText;
+          }
+        }
+        if (currentInterim) {
+          setInterimTranscript(currentInterim);
+        }
+      };
+
+      recognition.onerror = (event: any) => {
+        if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+          setMicStatus('denied');
+          isMicActiveRef.current = false;
+          setMicrophone(false);
+        } else if (event.error === 'no-speech') {
+          // non-fatal
+        } else if (event.error !== 'aborted') {
+          setMicStatus('error');
+        }
+      };
+
+      recognition.onend = () => {
+        if (isMicActiveRef.current) {
+          try {
+            recognition.start();
+          } catch {
+            isMicActiveRef.current = false;
+            setMicStatus('disabled');
+            setMicrophone(false);
+          }
+        } else {
+          setMicStatus('disabled');
+        }
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch {
+      setMicStatus('error');
+      setMicrophone(false);
+    }
+  }, [stopMicrophone]);
+
+  useEffect(() => {
+    if (microphone) {
+      startMicrophone();
+    } else {
+      stopMicrophone();
+    }
+    return () => {
+      stopMicrophone();
+    };
+  }, [microphone, startMicrophone, stopMicrophone]);
+
   const runScenario = (name: string) => {
     setScenario(name);
     isUserNearBottomRef.current = true;
@@ -738,14 +841,18 @@ function ConversationPage() {
           <div ref={messagesEndRef} key="messages-end-sentinel" style={{ height: 1 }} />
         </div>
         <div className="compose">
-          <div className="compose-top"><textarea value={draft} onChange={event => setDraft(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendText(); } }} placeholder="Type an English reply…" aria-label="Type an English reply" data-testid="input-message" /><button className="button primary" onClick={sendText} disabled={!draft.trim()} aria-label="Send typed reply" data-testid="button-send-message"><Send size={15} /></button></div>
-          <div className="compose-actions"><span className="compose-hint">Enter to send · Shift + Enter for a new line</span><button className="button soft small" onClick={() => speak('Your reply is ready to be spoken.')} data-testid="button-speak-test">{speaking ? <Pause size={13} /> : <Volume2 size={13} />} {speaking ? 'Speaking…' : 'Test voice'}</button></div>
+          {interimTranscript && <div style={{ fontSize: 12, color: 'hsl(195 80% 60%)', fontStyle: 'italic', marginBottom: 6, paddingLeft: 2 }} data-testid="live-speech-transcript">Listening: "{interimTranscript}"</div>}
+          <div className="compose-top"><textarea value={draft} onChange={event => setDraft(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendText(); } }} placeholder={microphone ? "Listening for speech or type an English reply…" : "Type an English reply…"} aria-label="Type an English reply" data-testid="input-message" /><button className="button primary" onClick={() => sendText()} disabled={!draft.trim()} aria-label="Send typed reply" data-testid="button-send-message"><Send size={15} /></button></div>
+          <div className="compose-actions"><span className="compose-hint">{microphone ? 'Microphone active · Speak or press Enter to send' : 'Enter to send · Shift + Enter for a new line'}</span><button className="button soft small" onClick={() => speak('Your reply is ready to be spoken.')} data-testid="button-speak-test">{speaking ? <Pause size={13} /> : <Volume2 size={13} />} {speaking ? 'Speaking…' : 'Test voice'}</button></div>
         </div>
       </section>
       <aside className="side-stack">
         <section className="panel side-panel"><div className="eyebrow">Input status</div><h3>Connection controls</h3>
           <div className="device-row"><div className="device-info"><Camera size={16} className="device-icon" /><span>Camera for ISL</span></div><button className={`toggle ${camera ? 'on' : ''}`} onClick={camera ? stopCamera : enableCamera} disabled={mode === 'demo'} aria-label={`${camera ? 'Disable' : 'Enable'} camera`} aria-pressed={camera} data-testid="toggle-camera"><i /></button></div>
           <div className="device-row"><div className="device-info"><Mic size={16} className="device-icon" /><span>Microphone</span></div><button className={`toggle ${microphone ? 'on' : ''}`} onClick={() => setMicrophone(!microphone)} aria-label={`${microphone ? 'Disable' : 'Enable'} microphone`} aria-pressed={microphone} data-testid="toggle-microphone"><i /></button></div>
+          {micStatus === 'unsupported' && <div style={{ fontSize: 11, color: 'hsl(0 70% 65%)', marginTop: 4 }} data-testid="status-mic-unsupported">Speech recognition is not supported in this browser.</div>}
+          {micStatus === 'denied' && <div style={{ fontSize: 11, color: 'hsl(0 70% 65%)', marginTop: 4 }} data-testid="status-mic-denied">Microphone permission was denied in browser settings.</div>}
+          {micStatus === 'listening' && <div style={{ fontSize: 11, color: '#56e0d1', marginTop: 4 }} data-testid="status-mic-listening">Microphone active — speak to transcribe{interimTranscript ? `: "${interimTranscript}"` : '…'}</div>}
           {mode === 'live' && cameraStatus === 'streaming' && <div style={{ position: 'relative', marginTop: 14 }}><video ref={videoRef} autoPlay playsInline muted aria-label="Live camera preview" data-testid="video-camera-preview" style={{ width: '100%', display: 'block', borderRadius: 10, background: 'hsl(195 24% 14%)' }} /><canvas ref={overlayRef} aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />{recognizingSessionTokens.length > 0 && <div style={{ position: 'absolute', bottom: 8, left: 8, right: 8, padding: '6px 10px', background: 'rgba(0, 0, 0, 0.75)', color: '#56e0d1', borderRadius: 6, fontSize: 12, fontWeight: 600, backdropFilter: 'blur(4px)' }} data-testid="live-recognizing-preview">Recognizing: {recognizingSessionTokens.join(' → ')}</div>}</div>}
           <div className="availability"><strong>{mode === 'demo' ? 'DEMO MODE is on' : 'LIVE CAMERA'}</strong>{mode === 'demo' ? 'No camera or microphone data is being captured. Turn on Live devices when you are ready.' : cameraStatus === 'disabled' ? 'Camera is off. Enable it to request access.' : cameraStatus === 'requesting' ? 'Requesting camera permission…' : cameraStatus === 'streaming' ? `Camera stream is active. Hand landmarker: ${modelStatus === 'ready' ? handDetected ? `hand detected (${hands.length}/2)` : 'hand not detected' : modelStatus === 'loading' ? 'loading…' : modelStatus === 'error' ? 'error' : 'waiting'}. Inference backend: ${backendStatus === 'connected' ? `Connected (${inferenceHint})` : 'Inference offline (FastAPI backend unavailable at http://localhost:8000)'}.` : cameraStatus === 'unsupported' ? 'This browser does not support camera access.' : cameraStatus === 'denied' ? 'Camera permission was denied. Allow camera access in your browser settings and try again.' : cameraStatus === 'no-device' ? 'No camera device was found.' : cameraStatus === 'unavailable' ? 'The camera is unavailable or already in use by another application.' : 'Unable to start the camera. Please try again.'}</div>
         </section>
